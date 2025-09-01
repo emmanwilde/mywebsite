@@ -1,306 +1,568 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emmanuel Alenday</title>
-    <style>
-        /* Base styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+   
+   
+    <head>
+       
+       
+        <!-- META -->
+        <meta charset="utf-8">
+        <meta name="robots" content="noodp">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+       
+        <!-- PAGE TITLE -->
+        <title>Ethan - Identity</title>
+       
+        <!-- FAVICON -->
+        <link rel="shortcut icon" href="assets/img/favicon.png">
+       
+        <!-- FONTS -->
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&amp;subset=latin-ext" rel="stylesheet">
+       
+        <!-- STYLESHEETS -->
+        <link rel="stylesheet" type="text/css" href="assets/css/plugins.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/main.css">
         
-        body {
-            font-family: 'Inter', 'Helvetica Neue', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #fff;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
         
-        a {
-            color: #333;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        a:hover {
-            color: #666;
-        }
-        
-        /* Typography */
-        h1, h2, h3 {
-            font-weight: 500;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            margin-bottom: 1.5rem;
-        }
-        
-        /* Header */
-        header {
-            padding: 2rem 0;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 3rem;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-        
-        /* Hero section */
-        .hero {
-            text-align: center;
-            padding: 4rem 0;
-            margin-bottom: 3rem;
-        }
-        
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            color: #666;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .btn:hover {
-            background-color: #666;
-            color: #fff;
-        }
-        
-        /* Sections */
-        section {
-            margin-bottom: 4rem;
-        }
-        
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: #333;
-        }
-        
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .project-card {
-            border: 1px solid #eee;
-            padding: 1.5rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .project-card h3 {
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Skills */
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .skill {
-            padding: 0.5rem 1rem;
-            background-color: #f5f5f5;
-            border-radius: 3px;
-        }
-        
-        /* Contact */
-        .contact-form {
-            max-width: 600px;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-        
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            font-family: inherit;
-        }
-        
-        .form-group textarea {
-            min-height: 150px;
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            border-top: 1px solid #eee;
-            margin-top: 4rem;
-            color: #666;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-            list-style: none;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                gap: 1rem;
-            }
+    </head>
+
+   
+    <body>
+    
+       
+        <!-- PRELOADER -->
+        <div class="preloader">
+           
+            <div class="spinner"></div>
             
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">Portfolio</div>
-            <ul class="nav-links">
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <h1>Hello, I'm Emmanuel</h1>
-        <p>A designer and developer focused on creating clean, functional, and user-centered experiences.</p>
-        <a href="#projects" class="btn">View My Work</a>
-    </section>
-
-    <section id="projects">
-        <h2 class="section-title">Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3>E-commerce Website</h3>
-                <p>A minimalist e-commerce platform with focus on user experience and clean design.</p>
-            </div>
-            <div class="project-card">
-                <h3>Mobile App UI</h3>
-                <p>Fitness tracking application with intuitive interface and data visualization.</p>
-            </div>
-            <div class="project-card">
-                <h3>Brand Identity</h3>
-                <p>Complete brand identity design for a sustainable clothing company.</p>
-            </div>
         </div>
-    </section>
+        <!-- /PRELOADER -->
+    
+        
+        <!-- IMAGE CONTAINER -->
+        <div class="image-container">
+           
+            <div class="background-img"></div>
 
-    <section id="skills">
-        <h2 class="section-title">Skills</h2>
-        <div class="skills-container">
-            <span class="skill">UI/UX Design</span>
-            <span class="skill">Web Development</span>
-            <span class="skill">HTML/CSS</span>
-            <span class="skill">JavaScript</span>
-            <span class="skill">React</span>
-            <span class="skill">Figma</span>
-            <span class="skill">Responsive Design</span>
-            <span class="skill">Typography</span>
         </div>
-    </section>
+        <!-- /IMAGE CONTAINER -->
 
-    <section id="about">
-        <h2 class="section-title">About Me</h2>
-        <p>I'm a designer and developer with a passion for creating intuitive, functional digital experiences. With a background in both design and development, I bridge the gap between aesthetics and technology.</p>
-        <p>My approach focuses on simplicity, usability, and attention to detail. I believe that good design should solve problems without calling attention to itself.</p>
-    </section>
 
-    <section id="contact">
-        <h2 class="section-title">Get In Touch</h2>
-        <form class="contact-form">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" required></textarea>
-            </div>
-            <button type="submit" class="btn">Send Message</button>
-        </form>
-    </section>
+        <!-- CONTENT AREA -->
+        <div class="content-area">
 
-    <footer>
-        <ul class="social-links">
-            <li><a href="#">LinkedIn</a></li>
-            <li><a href="#">GitHub</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Twitter</a></li>
-        </ul>
-        <p>&copy; 2023 Portfolio. All rights reserved.</p>
-    </footer>
-</body>
+
+            <!-- CONTENT AREA INNER --> 
+            <div class="content-area-inner">
+
+
+                <!-- INTRO -->
+                <section id="intro">
+
+
+                    <!-- CONTAINER MID -->
+                    <div class="container-mid">
+
+                       
+                        <!-- ANIMATION CONTAINER -->
+                        <div class="animation-container animation-fade-right" data-animation-delay="0">
+                        
+                            <h1>I’m Ethan Kruger and I design Stuff.</h1>
+                        
+                        </div>
+                        <!-- /ANIMATION CONTAINER -->
+                        
+                        
+                        <!-- ANIMATION CONTAINER -->
+                        <div class="animation-container animation-fade-right" data-animation-delay="200">
+                           
+                            <a href="#about" class="smooth-scroll">Learn More<div class="circle"><i class="fa fa-angle-down" aria-hidden="true"></i><i class="fa fa-angle-down" aria-hidden="true"></i></div></a>
+                            
+                        </div>
+                        <!-- /ANIMATION CONTAINER -->
+
+
+                    </div>
+                    <!-- /CONTAINER MID -->
+
+
+                </section>
+                <!-- /INTRO -->
+
+
+                <!-- ABOUT -->
+                <section id="about">
+
+
+                    <h3 class="headline scroll-animated">About Me</h3>
+                    
+                    <p class="scroll-animated">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mattis magna ac justo tincidunt, nec rhoncus leo rutrum. Duis mattis, neque id consectetur gravida, ligula massa consequat mi, id ultricies massa mauris eu augue. Donec dictum diam vitae dui iaculis, vitae laoreet sem molestie. Suspendisse hendrerit interdum euismod.</p>
+
+                    <p class="scroll-animated">In dui augue, pretium eget vulputate at, maximus eget augue. Vestibulum porttitor a nisl in rhoncus. Etiam libero est, pellentesque eleifend arcu at, congue gravida ex. Sed et nisl ultrices, mattis purus et, commodo quam. Etiam lacus est, faucibus ut mattis sed, mattis non enim. Maecenas elementum malesuada lorem, ut vestibulum erat iaculis non. Donec nec diam id dolor hendrerit sollicitudin.</p>
+                    
+                    
+                    <!-- CLIENTS -->
+                    <div class="row clients scroll-animated">
+                        
+                        
+                        <div class="col-md-3 col-xs-6"><img class="img-responsive" src="assets/img/clients/client-1.png" alt="client"></div>
+                        <div class="col-md-3 col-xs-6"><img class="img-responsive" src="assets/img/clients/client-2.png" alt="client"></div>
+                        <div class="col-md-3 col-xs-6"><img class="img-responsive" src="assets/img/clients/client-3.png" alt="client"></div>
+                        <div class="col-md-3 col-xs-6"><img class="img-responsive" src="assets/img/clients/client-4.png" alt="client"></div>
+                        
+                        
+                    </div>
+                    <!-- /CLIENTS -->
+
+
+                </section>
+                <!-- /ABOUT -->
+                
+                
+                <!-- SERVICE -->
+                <section id="service">
+
+
+                    <h3 class="headline scroll-animated">Services</h3>
+                    
+                    
+                    <!-- SERVICE LIST -->
+                    <ul class="services-list">
+                       
+                       
+                        <!-- SERVICE ITEM -->
+                        <li class="service-item scroll-animated">
+                           
+                           
+                            <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapse-item-1" aria-expanded="false">Webdesign</button>
+                            
+                            
+                            <!-- COLLAPSE CONTENT -->
+                            <div class="collapse" id="collapse-item-1">
+                               
+                               
+                                <!-- COLLAPSE CONTENT INNER -->
+                                <div class="well">
+                                   
+                                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mattis magna ac justo tincidunt, nec rhoncus leo rutrum. Duis mattis, neque id consectetur gravida, ligula massa consequat mi, id ultricies massa mauris eu augue. Donec dictum diam vitae dui iaculis, vitae laoreet sem molestie.</p>
+                                    
+                                </div>
+                                <!-- /COLLAPSE CONTENT INNER -->
+                                
+                                
+                            </div>
+                            <!-- /COLLAPSE CONTENT -->
+                            
+                            
+                        </li>
+                        <!-- /SERVICE ITEM -->
+                        
+                        
+                        <!-- SERVICE ITEM -->
+                        <li class="service-item scroll-animated">
+                           
+                           
+                            <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapse-item-2" aria-expanded="false">Marketing</button>
+                            
+                            
+                            <!-- COLLAPSE CONTENT -->
+                            <div class="collapse" id="collapse-item-2">
+                               
+                               
+                                <!-- COLLAPSE CONTENT INNER -->
+                                <div class="well">
+                                   
+                                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mattis magna ac justo tincidunt, nec rhoncus leo rutrum. Duis mattis, neque id consectetur gravida, ligula massa consequat mi, id ultricies massa mauris eu augue. Donec dictum diam vitae dui iaculis, vitae laoreet sem molestie.</p>
+                                    
+                                </div>
+                                <!-- /COLLAPSE CONTENT INNER -->
+                                
+                                
+                            </div>
+                            <!-- /COLLAPSE CONTENT -->
+                            
+                            
+                        </li>
+                        <!-- /SERVICE ITEM -->
+                        
+                        
+                        <!-- SERVICE ITEM -->
+                        <li class="service-item scroll-animated">
+                           
+                           
+                            <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapse-item-3" aria-expanded="false">Analytics</button>
+                            
+                            
+                            <!-- COLLAPSE CONTENT -->
+                            <div class="collapse" id="collapse-item-3">
+                               
+                               
+                                <!-- COLLAPSE CONTENT INNER -->
+                                <div class="well">
+                                   
+                                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mattis magna ac justo tincidunt, nec rhoncus leo rutrum. Duis mattis, neque id consectetur gravida, ligula massa consequat mi, id ultricies massa mauris eu augue. Donec dictum diam vitae dui iaculis, vitae laoreet sem molestie.</p>
+                                    
+                                </div>
+                                <!-- /COLLAPSE CONTENT INNER -->
+                                
+                                
+                            </div>
+                            <!-- /COLLAPSE CONTENT -->
+                            
+                            
+                        </li>
+                        <!-- /SERVICE ITEM -->
+                        
+                        
+                        <!-- SERVICE ITEM -->
+                        <li class="service-item scroll-animated">
+                           
+                           
+                            <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapse-item-4" aria-expanded="false">UI &amp; UX Design</button>
+                            
+                            
+                            <!-- COLLAPSE CONTENT -->
+                            <div class="collapse" id="collapse-item-4">
+                               
+                               
+                                <!-- COLLAPSE CONTENT INNER -->
+                                <div class="well">
+                                   
+                                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mattis magna ac justo tincidunt, nec rhoncus leo rutrum. Duis mattis, neque id consectetur gravida, ligula massa consequat mi, id ultricies massa mauris eu augue. Donec dictum diam vitae dui iaculis, vitae laoreet sem molestie.</p>
+                                    
+                                </div>
+                                <!-- /COLLAPSE CONTENT INNER -->
+                                
+                                
+                            </div>
+                            <!-- /COLLAPSE CONTENT -->
+                            
+                            
+                        </li>
+                        <!-- /SERVICE ITEM -->
+                        
+                        
+                    </ul>
+                    <!-- /SERVICE LIST -->
+
+
+                </section>
+                <!-- /SERVICE -->
+                
+                
+                <!-- WORK -->
+                <section id="work">
+
+
+                    <h3 class="headline scroll-animated">Latest Work</h3>
+                    
+                    
+                    <!-- SHOWCASE -->
+                    <div class="showcase">
+                       
+                       
+                        <!-- ITEM -->
+                        <div class="item scroll-animated">
+                          
+                          
+                            <!-- LIGHTBOX LINK -->
+                            <a href="#" data-featherlight="#item-1-lightbox">
+                            
+                            
+                                <!-- INFO -->
+                                <div class="info">
+
+
+                                    <!-- CONTAINER MID -->
+                                    <div class="container-mid">
+
+                                        <h5>Petron</h5>
+                                        <p>Web Design</p>
+
+                                    </div>
+                                    <!-- /CONTAINER MID -->
+
+
+                                </div>
+                                <!-- /INFO -->
+
+
+                                <div class="background-image" style="background-image: url(assets/img/work/item-1.jpg)"></div>
+
+                           
+                            </a>
+                            <!-- /LIGHTBOX LINK -->
+                            
+                            
+                            <!-- LIGHTBOX -->
+                            <div id="item-1-lightbox" class="work-lightbox">
+                               
+                               
+                                <img class="img-responsive" src="assets/img/work/item-1.jpg" alt="image">
+                                
+                                <h3>Petron</h3>
+                                <p class="subline">Web Design</p>
+                                
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper faucibus eros, quis imperdiet sapien. Nam sodales nec risus nec interdum. Proin lobortis, ex condimentum ultricies eleifend, nisl nunc sollicitudin odio, eget egestas est turpis et metus. In non ligula quis mauris rutrum porta.</p>
+                                
+                                <p>Integer scelerisque et orci in maximus. Nullam ac finibus nisi. Sed libero tellus, fringilla in posuere vitae, sollicitudin consectetur odio. Morbi pharetra tortor quis risus hendrerit, ut tincidunt arcu vehicula. Integer consequat lorem nisl, sit amet euismod libero fringilla placerat. Proin semper consequat ultricies. Vivamus condimentum tortor ac quam tristique, eget rhoncus arcu suscipit.</p>
+                                
+                                
+                            </div>
+                            <!-- /LIGHTBOX -->
+                            
+                            
+                        </div>
+                        <!-- /ITEM -->
+                        
+                        
+                        <!-- ITEM -->
+                        <div class="item scroll-animated">
+                          
+                          
+                            <!-- LIGHTBOX LINK -->
+                            <a href="#" data-featherlight="#item-2-lightbox">
+                            
+                            
+                                <!-- INFO -->
+                                <div class="info">
+
+
+                                    <!-- CONTAINER MID -->
+                                    <div class="container-mid">
+
+                                        <h5>Surf 71</h5>
+                                        <p>Product Design</p>
+
+                                    </div>
+                                    <!-- /CONTAINER MID -->
+
+
+                                </div>
+                                <!-- /INFO -->
+
+
+                                <div class="background-image" style="background-image: url(assets/img/work/item-2.jpg)"></div>
+
+                           
+                            </a>
+                            <!-- /LIGHTBOX LINK -->
+                            
+                            
+                            <!-- LIGHTBOX -->
+                            <div id="item-2-lightbox" class="work-lightbox">
+                               
+                               
+                                <img class="img-responsive" src="assets/img/work/item-2.jpg" alt="image">
+                                
+                                <h3>Surf 71</h3>
+                                <p class="subline">Product Design</p>
+                                
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper faucibus eros, quis imperdiet sapien. Nam sodales nec risus nec interdum. Proin lobortis, ex condimentum ultricies eleifend, nisl nunc sollicitudin odio, eget egestas est turpis et metus. In non ligula quis mauris rutrum porta.</p>
+                                
+                                <p>Integer scelerisque et orci in maximus. Nullam ac finibus nisi. Sed libero tellus, fringilla in posuere vitae, sollicitudin consectetur odio. Morbi pharetra tortor quis risus hendrerit, ut tincidunt arcu vehicula. Integer consequat lorem nisl, sit amet euismod libero fringilla placerat. Proin semper consequat ultricies. Vivamus condimentum tortor ac quam tristique, eget rhoncus arcu suscipit.</p>
+                                
+                                
+                            </div>
+                            <!-- /LIGHTBOX -->
+                            
+                            
+                        </div>
+                        <!-- /ITEM -->
+                        
+                        
+                        <!-- ITEM -->
+                        <div class="item scroll-animated">
+                          
+                          
+                            <!-- LIGHTBOX LINK -->
+                            <a href="#" data-featherlight="#item-3-lightbox">
+                            
+                            
+                                <!-- INFO -->
+                                <div class="info">
+
+
+                                    <!-- CONTAINER MID -->
+                                    <div class="container-mid">
+
+                                        <h5>Game Nation</h5>
+                                        <p>Marketing</p>
+
+                                    </div>
+                                    <!-- /CONTAINER MID -->
+
+
+                                </div>
+                                <!-- /INFO -->
+
+
+                                <div class="background-image" style="background-image: url(assets/img/work/item-3.jpg)"></div>
+
+                           
+                            </a>
+                            <!-- /LIGHTBOX LINK -->
+                            
+                            
+                            <!-- LIGHTBOX -->
+                            <div id="item-3-lightbox" class="work-lightbox">
+                               
+                               
+                                <img class="img-responsive" src="assets/img/work/item-3.jpg" alt="image">
+                                
+                                <h3>Game Nation</h3>
+                                <p class="subline">Marketing</p>
+                                
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper faucibus eros, quis imperdiet sapien. Nam sodales nec risus nec interdum. Proin lobortis, ex condimentum ultricies eleifend, nisl nunc sollicitudin odio, eget egestas est turpis et metus. In non ligula quis mauris rutrum porta.</p>
+                                
+                                <p>Integer scelerisque et orci in maximus. Nullam ac finibus nisi. Sed libero tellus, fringilla in posuere vitae, sollicitudin consectetur odio. Morbi pharetra tortor quis risus hendrerit, ut tincidunt arcu vehicula. Integer consequat lorem nisl, sit amet euismod libero fringilla placerat. Proin semper consequat ultricies. Vivamus condimentum tortor ac quam tristique, eget rhoncus arcu suscipit.</p>
+                                
+                                
+                            </div>
+                            <!-- /LIGHTBOX -->
+                            
+                            
+                        </div>
+                        <!-- /ITEM -->
+                        
+                        
+                        <!-- ITEM -->
+                        <div class="item scroll-animated">
+                          
+                          
+                            <!-- LIGHTBOX LINK -->
+                            <a href="#" data-featherlight="#item-4-lightbox">
+                            
+                            
+                                <!-- INFO -->
+                                <div class="info">
+
+
+                                    <!-- CONTAINER MID -->
+                                    <div class="container-mid">
+
+                                        <h5>Cronomax</h5>
+                                        <p>UI/UX DESIGN</p>
+
+                                    </div>
+                                    <!-- /CONTAINER MID -->
+
+
+                                </div>
+                                <!-- /INFO -->
+
+
+                                <div class="background-image" style="background-image: url(assets/img/work/item-4.jpg)"></div>
+
+                           
+                            </a>
+                            <!-- /LIGHTBOX LINK -->
+                            
+                            
+                            <!-- LIGHTBOX -->
+                            <div id="item-4-lightbox" class="work-lightbox">
+                               
+                               
+                                <img class="img-responsive" src="assets/img/work/item-4.jpg" alt="image">
+                                
+                                <h3>Cronomax</h3>
+                                <p class="subline">UI/UX DESIGN</p>
+                                
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper faucibus eros, quis imperdiet sapien. Nam sodales nec risus nec interdum. Proin lobortis, ex condimentum ultricies eleifend, nisl nunc sollicitudin odio, eget egestas est turpis et metus. In non ligula quis mauris rutrum porta.</p>
+                                
+                                <p>Integer scelerisque et orci in maximus. Nullam ac finibus nisi. Sed libero tellus, fringilla in posuere vitae, sollicitudin consectetur odio. Morbi pharetra tortor quis risus hendrerit, ut tincidunt arcu vehicula. Integer consequat lorem nisl, sit amet euismod libero fringilla placerat. Proin semper consequat ultricies. Vivamus condimentum tortor ac quam tristique, eget rhoncus arcu suscipit.</p>
+                                
+                                
+                            </div>
+                            <!-- /LIGHTBOX -->
+                            
+                            
+                        </div>
+                        <!-- /ITEM -->
+                        
+                        
+                    </div>
+                    <!-- /SHOWCASE -->
+
+
+                </section>
+                <!-- /WORK -->
+                
+                
+                <!-- CONTACT -->
+                <section id="contact">
+
+
+                    <h3 class="headline scroll-animated">Contact Me</h3>
+                    
+                    
+                    <!-- CONTACT FORM --> 
+                    <form id="contact-form" action="assets/php/contact.php" method="post">
+
+                       
+                        <input id="contact-form-name" type="text" name="name" class="form-control scroll-animated" placeholder="* Your Name">
+                        
+                        <input id="contact-form-email" type="text" name="email" class="form-control scroll-animated" placeholder="* Your Email">
+                        
+                        <!-- PHANTOM ELEMENT ( HONEYPOT CAPTCHA FOR SECURITY ) -->
+                        <div class="fhp-input"><input id="contact-form-company" type="text" name="company" class="form-control"></div>
+                        <!-- /PHANTOM ELEMENT ( HONEYPOT CAPTCHA FOR SECURITY ) -->
+                        
+                        <textarea id="contact-form-message" name="message" class="form-control scroll-animated" placeholder="* Your Message"></textarea>
+                        
+                        <button type="submit" class="form-control scroll-animated">Send Message<div class="circle"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></div></button>
+                        
+                        <div class="success-message"><i class="fa fa-check" aria-hidden="true"></i>The Email was Sent Successfully!</div>
+
+                   
+                    </form>
+                    <!-- /CONTACT FORM --> 
+
+
+                </section>
+                <!-- /CONTACT -->
+                
+                
+                <!-- FOOTER -->
+                <section id="footer">
+                
+                   
+                    <!-- SOCIAL ICONS -->
+                    <ul class="social-icons scroll-animated">
+                       
+                       
+                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        
+                        
+                    </ul>
+                    <!-- /SOCIAL ICONS -->
+                    
+
+                    <p class="scroll-animated">© 2017 Your Brand | Design by <a href="https://templatefoundation.com">Template Foundation</a></p>
+
+
+                </section>
+                <!-- /FOOTER -->
+
+
+            </div>
+            <!-- /CONTENT AREA INNER -->
+
+
+        </div>
+        <!-- /CONTENT AREA -->
+        
+        
+        <!-- JAVASCRIPTS -->
+        <script type="text/javascript" src="assets/js/plugins.js"></script>
+        <script type="text/javascript" src="assets/js/main.js"></script>
+   
+   
+    </body> 
+    
+    
 </html>
