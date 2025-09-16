@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEXUS MACHINERIES</title>
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      color: #fff;
+      line-height: 1.6;
+    }
+    a {
+      color: #00b33c;
+      text-decoration: none;
+    }
+    a:hover,
+    button:hover {
+      opacity: 0.85;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: 6px;
+    }
+    /* Container */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    /* Buttons */
+    .btn {
+      background-color: #00b33c;
+      color: #000;
+      font-weight: 700;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      text-align: center;
+    }
+    .btn-dark {
+      background-color: #000;
+      color: #00b33c;
+      border: 2px solid #00b33c;
+    }
+   /* Hero Section */
+#hero {
+  position: relative;
+  height: 90vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* prevents bleeding outside */
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+#hero video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;   /* fills the width */
+  height: 100%;  /* fills the height */
+  object-fit: cover; /* makes it responsive like a background image */
+  z-index: -1;
+}
+
+    #hero .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 1;
+    }
+    #hero .content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      padding: 2rem;
+    }
+    #hero h1 {
+      font-size: 4rem;
+      margin-bottom: 0.3rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+    #hero h2 {
+      font-size: 2.8rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      color: #ffffff;
+    }
+    #hero ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #d1f7d1;
+    }
+    #hero ul li {
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    #hero ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      color: #00b33c;
+      font-weight: 900;
+    }
+    /* Trust Section */
+    #trust {
+      background: #111;
+      padding: 3rem 0 2rem;
+      text-align: center;
+      color: #ccc;
+    }
+    #trust .logo-bar {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+    #trust .logo-bar img {
+      max-height: 60px;
+      filter: brightness(0) invert(1);
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+    #trust .logo-bar img:hover {
+      opacity: 1;
+    }
+    #trust p.trusted {
+      font-weight: 600;
+      color: #00b33c;
+      margin-bottom: 2rem;
+      font-size: 1.2rem;
+    }
+    #trust .testimonials {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 1.5rem;
+    }
+    #trust .testimonial {
+      background: #222;
+      border-left: 5px solid #00b33c;
+      padding: 1rem 1.5rem;
+      font-style: italic;
+      color: #d1f7d1;
+      border-radius: 4px;
+      position: relative;
+    }
+    #trust .testimonial::before {
+      content: '“';
+      font-size: 3rem;
+      position: absolute;
+      top: 0.2rem;
+      left: 0.5rem;
+      color: #00b33c;
+      font-weight: 900;
+      line-height: 1;
+    }
+    #trust .testimonial p {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+    /* Products Section */
+    #products {
+      padding: 4rem 0 2rem;
+      background: #000;
+      color: #fff;
+      text-align: center;
+    }
+    #products h2 {
+      font-size: 2.8rem;
+      margin-bottom: 2rem;
+      color: #00b33c;
+      font-weight: 700;
+    }
+    #products .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    #products .card {
+      background: #111;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0,179,60,0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease;
+    }
+    #products .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px #00b33c;
+    }
+    #products .card img {
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      height: 160px;
+      object-fit: cover;
+    }
+    #products .card h3 {
+      margin: 0 0 0.5rem;
+      color: #00b33c;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+    #products .card p {
+      flex-grow: 1;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      color: #b8f2b8;
+    }
+    #products .card .btn-small {
+      align-self: flex-start;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      background-color: transparent;
+      border: 2px solid #00b33c;
+      color: #00b33c;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      text-decoration: none;
+    }
+    #products .card .btn-small:hover {
+      background-color: #00b33c;
+      color: #000;
+    }
+    /* Why Choose Us Section */
+    #why-choose {
+      background: #111;
+      padding: 4rem 0 3rem;
+      color: #d1f7d1;
+      text-align: center;
+    }
+    #why-choose h2 {
+      font-size: 2.8rem;
+      margin-bottom: 2rem;
+      color: #00b33c;
+      font-weight: 700;
+    }
+    #why-choose ul {
+      list-style: none;
+      max-width: 700px;
+      margin: 0 auto;
+      padding-left: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 1rem 2rem;
+      text-align: left;
+    }
+    #why-choose ul li {
+      font-size: 1.1rem;
+      position: relative;
+      padding-left: 2.2rem;
+      font-weight: 600;
+      color: #b8f2b8;
+    }
+    #why-choose ul li::before {
+      content: '✅';
+      position: absolute;
+      left: 0;
+      font-size: 1.3rem;
+      line-height: 1;
+      color: #00b33c;
+    }
+    /* CTA Section */
+    #cta {
+      background: #000000;
+      color: #ffffff;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+    #cta h2 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 900;
+    }
+    #cta p {
+      font-size: 1.3rem;
+      margin-bottom: 1.8rem;
+      font-weight: 600;
+    }
+    #cta .btn {
+      font-size: 1.3rem;
+      padding: 1rem 3rem;
+      font-weight: 900;
+      border-radius: 6px;
+    }
+    /* Contact Section */
+    #contact {
+      background: #000;
+      color: #fff;
+      padding: 4rem 1rem 3rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    #contact h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #00b33c;
+      font-weight: 700;
+    }
+    #contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+    #contact label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: block;
+      color: #b8f2b8;
+    }
+    #contact input,
+    #contact select,
+    #contact textarea {
+      padding: 0.7rem 1rem;
+      border-radius: 4px;
+      border: 1.5px solid #00b33c;
+      background: #111;
+      color: #d1f7d1;
+      font-size: 1rem;
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+    #contact input:focus,
+    #contact select:focus,
+    #contact textarea:focus {
+      outline: none;
+      border-color: #00ff44;
+      background: #000;
+      color: #fff;
+    }
+    #contact button {
+      margin-top: 1rem;
+      background-color: #00b33c;
+      color: #000;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #contact button:hover {
+      background-color: #00ff44;
+    }
+    #contact .direct-contact {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #b8f2b8;
+    }
+    #contact .direct-contact a {
+      color: #00b33c;
+      font-weight: 700;
+      margin: 0 0.5rem;
+    }
+    #contact .social {
+      margin-top: 1rem;
+    }
+    #contact .social a {
+      display: inline-block;
+      margin: 0 0.5rem;
+      color: #00b33c;
+      font-size: 1.8rem;
+      vertical-align: middle;
+    }
+    /* Footer */
+    footer {
+      background: #111;
+      color: #666;
+      text-align: center;
+      padding: 1rem 1rem;
+      font-size: 0.9rem;
+      border-top: 1px solid #222;
+    }
+    footer a {
+      color: #00b33c;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      #hero h1 {
+        font-size: 2.8rem;
+      }
+      #hero h2 {
+        font-size: 1.3rem;
+      }
+      #cta h2 {
+        font-size: 2rem;
+      }
+      #cta p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section id="hero">
+  <video autoplay muted loop playsinline>
+    <source src="sinotruk.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="overlay"></div>
+
+  <div class="container content" style="position: relative; z-index: 2; text-align: center;">
+
+    <!-- White stripe with logo above texts -->
+    <div style="background-color: white; height: 200px; width: 100%; display: flex; justify-content: center; align-items: center; margin-bottom: 2rem;">
+      <img src="logo.png" alt="NEXUS MACHINERIES Logo" style="max-width: 400px; height: auto;">
+    </div>
+
+    <!-- Text content -->
+    <h2>Your Partner in Heavy Equipment &amp; Truck Financing</h2>
+    <ul aria-label="Key value propositions">
+      <li>LOWEST Interest Rates (5-6% p.a.)</li>
+      <li>Fast 3-5 Day Approval</li>
+      <li>Massive Cash Discounts</li>
+    </ul>
+    <a href="https://www.facebook.com/nmgenie23" class="btn" role="button">GET A QUOTE TODAY</a>
+  </div>
+</section>
+
+
+
+  <!-- Trust Indicators & Credentials Section -->
+  <section id="trust" aria-label="Trust indicators and credentials">
+    <div class="container">
+      <div class="logo-bar" role="list" aria-label="Partner logos">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Philippine_Government_Logo.svg/120px-Philippine_Government_Logo.svg.png" alt="LGU Supplier Logo" role="listitem" />
+        <img src=/1580614963_PS-PhilGEPS.png alt="PHILGEPS Platinum Member Logo" role="listitem" />
+      </div>
+      <p class="trusted">A Trusted Government Supplier</p>
+
+      <div class="testimonials" aria-label="Customer testimonials">
+        <blockquote class="testimonial" tabindex="0">
+          <p>“Nexus Machineries made financing my truck so easy and fast. Highly recommended!” – Juan D.</p>
+        </blockquote>
+        <blockquote class="testimonial" tabindex="0">
+          <p>“Great rates and excellent customer service. Got approved in just 4 days.” – Maria S.</p>
+        </blockquote>
+        <blockquote class="testimonial" tabindex="0">
+          <p>“The cash discounts helped me save a lot. Thank you Nexus!” – Carlos P.</p>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products / Services Section -->
+  <section id="products" aria-label="Our equipment and services">
+    <div class="container">
+      <h2>Our Equipment &amp; Services</h2>
+      <div class="grid">
+        <article class="card" aria-labelledby="prod1-title">
+          <img src="dumptruck.png" alt="NX Dump Truck 10W" />
+          <h3 id="prod1-title">NX Dump Truck 10W</h3>
+          <p>Heavy-duty 10-wheel dump truck with 15-ton capacity.</p>
+          <a href="#contact" class="btn-small" role="button" aria-label="Learn more about NX Dump Truck 10W">Learn More</a>
+        </article>
+        <article class="card" aria-labelledby="prod2-title">
+          <img src="howo.jpg" alt="HOWO SINOTRUCK" />
+          <h3 id="prod2-title">HOWO SINOTRUCK</h3>
+          <p>Reliable and powerful truck for construction and heavy hauling.</p>
+          <a href="#contact" class="btn-small" role="button" aria-label="Learn more about HOWO SINOTRUCK">Learn More</a>
+        </article>
+        <article class="card" aria-labelledby="prod3-title">
+          <img src="lonking.png" alt="Hydraulic Excavator" />
+          <h3 id="prod3-title">Hydraulic Excavator</h3>
+          <p>Efficient excavator with advanced hydraulic system for precision digging.</p>
+          <a href="#contact" class="btn-small" role="button" aria-label="Learn more about Hydraulic Excavator">Learn More</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section id="why-choose" aria-label="Reasons to choose Nexus Machineries">
+    <div class="container">
+      <h2>Why Choose Us?</h2>
+      <ul>
+        <li>Low Downpayment</li>
+        <li>Lowest Interest Rate (5-6% per annum)</li>
+        <li>Up to 300k-500k Cash Discount</li>
+        <li>No Processing Fees</li>
+        <li>3-5 Day Approval</li>
+        <li>Lot of Freebies</li>
+        <li>Good Client Relationship After Sale</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Call-to-Action Section -->
+  <section id="cta" aria-label="Call to action to contact Nexus Machineries">
+    <div class="container">
+      <h2>Ready to Get the Best Deal on Your Heavy Equipment?</h2>
+       <a href="https://www.facebook.com/nmgenie23" class="btn" role="button" aria-label="Get a quote today">GET A QUOTE TODAY</a>
