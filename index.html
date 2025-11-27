@@ -1,536 +1,1132 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emmanuel Alenday - E-commerce Specialist & Digital Marketing Expert</title>
+    <meta name="description" content="Transform your e-commerce business with expert cross-platform management, SEO optimization, and professional graphic design services.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Primary Colors - Dark Theme */
+            --primary-50: #1e3a8a;
+            --primary-500: #3b82f6;
+            --primary-700: #1e40af;
+            
+            /* Dark Theme Colors */
+            --neutral-0: #0f172a;
+            --neutral-50: #1e293b;
+            --neutral-100: #334155;
+            --neutral-200: #475569;
+            --neutral-400: #94a3b8;
+            --neutral-700: #cbd5e1;
+            --neutral-900: #f8fafc;
+            
+            /* Semantic Colors */
+            --success-500: #10b981;
+            --error-500: #ef4444;
+            
+            /* Dark Accent Colors */
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            
+            /* Typography */
+            --font-family: 'Inter', sans-serif;
+            
+            /* Spacing */
+            --space-8: 8px;
+            --space-16: 16px;
+            --space-24: 24px;
+            --space-32: 32px;
+            --space-48: 48px;
+            --space-64: 64px;
+            --space-96: 96px;
+            
+            /* Border Radius */
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            
+            /* Shadows */
+            --shadow-card: 0 4px 12px rgba(0, 102, 255, 0.08);
+            --shadow-hover: 0 8px 24px rgba(0, 102, 255, 0.12);
+        }
 
-    <!-- Basic -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
-   
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
- 
-     <!-- Site Metas -->
-    <title>Emmanuel | Identity</title>  
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--neutral-700);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            min-height: 100vh;
+        }
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Site CSS -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="css/responsive.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
-	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--space-32);
+        }
 
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        /* Typography */
+        .h1 {
+            font-size: 20px;
+            font-weight: 350;
+            line-height: 1;
+            color: var(--neutral-900);
+            margin-bottom: var(--space-24);
+            background: linear-gradient(135deg, var(--neutral-900) 0%, var(--primary-500) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
+        .h2 {
+            font-size: 40px;
+            font-weight: 200;
+            line-height: 1.3;
+            color: var(--neutral-900);
+            margin-bottom: var(--space-24);
+        }
+
+        .h3 {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--neutral-900);
+            margin-bottom: var(--space-16);
+        }
+
+        .body {
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .body-medium {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .small {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--neutral-0);
+            padding: var(--space-16) 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow-card);
+        }
+
+        .nav {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: var(--space-16) 0;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 200;
+            color: var(--primary-500);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-32);
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--neutral-700);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-500);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: calc(var(--space-96) + 80px) 0 var(--space-96);
+            text-align: center;
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.85)), url('imgs/hero_banner_3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .eyebrow {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-purple);
+            margin-bottom: var(--space-24);
+            letter-spacing: 0.05em;
+        }
+
+        .hero-description {
+            max-width: 700px;
+            margin: 0 auto var(--space-32);
+            color: var(--neutral-700);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-8);
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-500);
+            color: var(--neutral-0);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-700);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        /* Sections */
+        .section {
+            padding: var(--space-96) 0;
+        }
+
+        .section-alt {
+            background: linear-gradient(135deg, var(--neutral-50) 0%, var(--neutral-100) 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-64);
+        }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(135deg, var(--neutral-0) 0%, var(--neutral-50) 100%);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            padding: var(--space-32);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-500), var(--accent-purple), var(--accent-pink));
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-500), var(--accent-purple));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-24);
+            color: white;
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        }
+
+        .card-description {
+            color: var(--neutral-700);
+            margin-bottom: var(--space-24);
+        }
+
+        .card-features {
+            list-style: none;
+        }
+
+        .card-features li {
+            padding: var(--space-8) 0;
+            position: relative;
+            padding-left: var(--space-24);
+        }
+
+        .card-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-500);
+            font-weight: 700;
+        }
+
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: var(--space-48);
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-64);
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* Social Media Links */
+        .social-links {
+            display: flex;
+            gap: var(--space-16);
+            justify-content: center;
+            margin-top: var(--space-32);
+        }
+        
+        .social-link {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-500), var(--accent-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-500);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary-500);
+            color: var(--neutral-0);
+            transform: translateY(-2px);
+        }
+
+        /* Portfolio Images */
+        .portfolio-item {
+            text-align: center;
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-50) 0%, var(--neutral-50) 100%);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--primary-500);
+        }
+
+        /* Testimonials Section (Commented) */
+        /*
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-32);
+            margin-top: var(--space-64);
+        }
+
+        .testimonial-card {
+            background: var(--neutral-0);
+            padding: var(--space-32);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            text-align: center;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: var(--space-24);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--neutral-900);
+        }
+
+        .testimonial-role {
+            font-size: 14px;
+            color: var(--neutral-400);
+        }
+        */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-32);
+        }
+
+        .stat {
+            text-align: center;
+            padding: var(--space-24);
+            background: var(--neutral-50);
+            border-radius: var(--radius-md);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-500);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--neutral-700);
+            margin-top: var(--space-8);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: linear-gradient(135deg, var(--neutral-0) 0%, var(--neutral-50) 100%);
+            padding: var(--space-64);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-24);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-8);
+            font-weight: 500;
+            color: var(--neutral-900);
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: var(--radius-md);
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--neutral-900);
+            backdrop-filter: blur(10px);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--neutral-900);
+            color: var(--neutral-0);
+            padding: var(--space-64) 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-32);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-24);
+            list-style: none;
+        }
+
+        .footer-link {
+            color: var(--neutral-0);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-500);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .h1 {
+                font-size: 40px;
+            }
+            
+            .h2 {
+                font-size: 32px;
+            }
+            
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: calc(var(--space-48) + 80px) 0 var(--space-48);
+                min-height: 50vh;
+            }
+            
+            .hero-description {
+                max-width: 60%;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+            }
+            
+            .section {
+                padding: var(--space-64) 0;
+            }
+            
+            .container {
+                padding: 0 var(--space-16);
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: var(--space-24);
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+            }
+        }
+
+        .fade-in:nth-child(2) { animation-delay: 0.1s; }
+        .fade-in:nth-child(3) { animation-delay: 0.2s; }
+        .fade-in:nth-child(4) { animation-delay: 0.3s; }
+    </style>
 </head>
-<body id="page-top" class="politics_version">
-
-    <!-- LOADER -->
-    <div id="preloader">
-        <div id="main-ld">
-			<div id="loader"></div>  
-		</div>
-    </div><!-- end loader -->
-    <!-- END LOADER -->
-	
+<body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">
-			<img class="img-fluid" src="images/logo.png" alt="" />
-		</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger active" href="#home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About me</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#testimonials">Testimonials</a>
-            </li>
-			<li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#blog">Blog</a>
-            </li>
-			<li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact me</a>
-            </li>
-          </ul>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="#" class="logo">Emmanuel Alenday</a>
+                <ul class="nav-links">
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
         </div>
-      </div>
     </nav>
-	
-	<section id="home" class="main-banner parallaxie" style="background: url('uploads/banner-01.jpg')">
-		<div class="heading">
-			<h1>hello i'm Emmanuel</h1>
-			<p>"I'm not just a designer who makes things look good; I'm a curious builder who understands how digital products function under the hood. This unique combination allows me to create designs that are not only visually stunning but also technically sound and user-focused."</p>
-			<h3 class="cd-headline clip is-full-width">
-				<span></span>
-				<span class="cd-words-wrapper">
-					<b class="is-visible">Graphic Design</b>
-					<b>Web Design</b>
-					<b>Creative Design</b>
-				</span>
-			</h3>
-		</div>
-	</section>
 
-	<svg id="clouds" class="hidden-xs" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100" viewBox="0 0 85 100" preserveAspectRatio="none">
-        <path d="M-5 100 Q 0 20 5 100 Z
-            M0 100 Q 5 0 10 100
-            M5 100 Q 10 30 15 100
-            M10 100 Q 15 10 20 100
-            M15 100 Q 20 30 25 100
-            M20 100 Q 25 -10 30 100
-            M25 100 Q 30 10 35 100
-            M30 100 Q 35 30 40 100
-            M35 100 Q 40 10 45 100
-            M40 100 Q 45 50 50 100
-            M45 100 Q 50 20 55 100
-            M50 100 Q 55 40 60 100
-            M55 100 Q 60 60 65 100
-            M60 100 Q 65 50 70 100
-            M65 100 Q 70 20 75 100
-            M70 100 Q 75 45 80 100
-            M75 100 Q 80 30 85 100
-            M80 100 Q 85 20 90 100
-            M85 100 Q 90 50 95 100
-            M90 100 Q 95 25 100 100
-            M95 100 Q 100 15 105 100 Z">
-        </path>
-    </svg>
-
-    <div id="about" class="section wb">
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="message-box">                        
-                        <h2>About Emmanuel.</h2>
-                        <p>I am a versatile Digital Designer and Tech-Savvy Creative with a passion for building bridges between compelling visual design and functional technology. My core expertise lies in creating impactful graphics—from logos and marketing campaigns to full web layouts—that are both beautiful and strategically focused.</p>
-						<p>Beyond the canvas of Photoshop, I thrive on troubleshooting complex problems. Whether it's configuring a minimalist Arch Linux setup, deploying a local web server to bring an idea to life, or analyzing campaign insights to guide design decisions, I enjoy the puzzle of making things work efficiently and effectively.</p>
+            <div class="hero-content">
+                <div class="eyebrow fade-in"></div>
+                <h1 class="h1 fade-in">E-commerce & Digital Marketing Solutions</h1>
+                <p class="hero-description body fade-in">
+                    Professional e-commerce management for Shopify, eBay, Poshmark, and Depop. From product research 
+                    to cross-platform optimization, I help online store owners maximize revenue and streamline operations.
+                </p>
+                <a href="#contact" class="btn btn-primary fade-in">
+                    Get Your Store Moving
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
 
-                        <a href="Emmanuel_Alenday_CV_2025.pdf" class="sim-btn btn-hover-new" data-text="Download CV" target="_blank" download><span>Download CV</span></a>
-                    </div><!-- end messagebox -->
-                </div><!-- end col -->
-
-                <div class="col-md-6">
-                    <div class="right-box-pro wow fadeIn">
-                        <img src="uploads/about_04.jpg" alt="" class="img-fluid img-rounded">
-                    </div><!-- end media -->
-                </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end section -->
-	
-    <div id="services" class="section lb">
+    <!-- Services Section -->
+    <section id="services" class="section section-alt">
         <div class="container">
-            <div class="section-title text-left">
-                <h3>Services</h3>
-                <p>I bridge design and technology, crafting visual solutions from brand identity to functional digital products and streamlined tech setups.</p>
-            </div><!-- end title -->
-
-            <div class="row">
-				<div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-seo"></i>
-						</div>
-						<h2>Digital & Social Media Design</h2>
-						<p>Creating engaging social content and ads that perform well and drive action.</p>
-					</div>
-                </div><!-- end col -->
-                <div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-development"></i>
-						</div>
-						<h2>Branding & Print Design</h2>
-						<p>Designing logos, business cards, and flyers for a cohesive brand identity.</p>
-					</div>
-                </div><!-- end col -->
-				<div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-process"></i>
-						</div>
-						<h2>UI & Web Design</h2>
-						<p>Crafting intuitive and visually appealing user interfaces for websites and apps.</p>
-					</div>
-                </div><!-- end col -->
-				<div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-discuss-issue"></i>
-						</div>
-						<h2>Marketing Campaign Design</h2>
-						<p>Developing full sets of coordinated marketing materials for effective campaigns.</p>
-					</div>
-                </div><!-- end col -->
-				<div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-idea"></i>
-						</div>
-						<h2>Tech-Savvy Design Collaboration</h2>
-						<p>Bridging the gap between design vision and technical development feasibility.</p>
-					</div>
-                </div><!-- end col -->
-				<div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-idea-1"></i>
-						</div>
-						<h2>Basic IT & Computer Setup</h2>
-						<p>Setting up and troubleshooting office computers and software for optimal workflow.</p>
-					</div>
-                </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end section -->
-	
-	<div id="portfolio" class="section lb">
-		<div class="container">
-			<div class="section-title text-left">
-                <h3>Portfolio</h3>
-                <p>Quisque eget nisl id nulla sagittis auctor quis id. Aliquam quis vehicula enim, non aliquam risus.</p>
-            </div><!-- end title -->
-			
-			<div class="gallery-menu row">
-				<div class="col-md-12">
-					<div class="button-group filter-button-group text-left">
-						<button class="active" data-filter="*">All</button>
-						<button data-filter=".gal_a">Web Development</button>
-						<button data-filter=".gal_b">Creative Design</button>
-						<button data-filter=".gal_c">Graphic Design</button>
-					</div>
-				</div>
-			</div>
-			
-			<div class="gallery-list row">
-				<div class="col-md-4 col-sm-6 gallery-grid gal_a gal_b">
-					<div class="gallery-single fix">
-						<img src="uploads/gallery_img-01.jpg" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="uploads/gallery_img-01.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-6 gallery-grid gal_c gal_b">
-					<div class="gallery-single fix">
-						<img src="uploads/gallery_img-02.jpg" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="uploads/gallery_img-02.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-6 gallery-grid gal_a gal_c">
-					<div class="gallery-single fix">
-						<img src="uploads/gallery_img-03.jpg" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="uploads/gallery_img-03.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-6 gallery-grid gal_b gal_a">
-					<div class="gallery-single fix">
-						<img src="uploads/gallery_img-04.jpg" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="uploads/gallery_img-04.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-6 gallery-grid gal_a gal_c">
-					<div class="gallery-single fix">
-						<img src="uploads/gallery_img-05.jpg" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="uploads/gallery_img-05.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-6 gallery-grid gal_c gal_a">
-					<div class="gallery-single fix">
-						<img src="uploads/gallery_img-06.jpg" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="uploads/gallery_img-06.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			</div>
-		</div>
-	</div>
-	
-	 <div id="testimonials" class="section wb">
-        <div class="container">
-            <div class="section-title text-left">
-                <h3>Testimonials</h3>
-                <p>We thanks for all our awesome testimonials! There are hundreds of our happy customers! </p>
-            </div><!-- end title -->
-
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <div class="testi-carousel owl-carousel owl-theme">
-                        <div class="testimonial clearfix">
-                            <div class="desc">
-                                <h3><i class="fa fa-quote-left"></i> Wonderful Support!</h3>
-                                <p class="lead">They have got my project on time with the competition with a sed highly skilled, and experienced & professional team.</p>
-                            </div>
-                            <div class="testi-meta">
-                                <img src="uploads/testi_01.png" alt="" class="img-fluid alignleft">
-                                <h4>James Fernando <small>- Manager of Racer</small></h4>
-                            </div>
-                            <!-- end testi-meta -->
-                        </div>
-                        <!-- end testimonial -->
-
-                        <div class="testimonial clearfix">
-                            <div class="desc">
-                                <h3><i class="fa fa-quote-left"></i> Awesome Services!</h3>
-                                <p class="lead">Explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you completed.</p>
-                            </div>
-                            <div class="testi-meta">
-                                <img src="uploads/testi_02.png" alt="" class="img-fluid alignleft">
-                                <h4>Jacques Philips <small>- Designer</small></h4>
-                            </div>
-                            <!-- end testi-meta -->
-                        </div>
-                        <!-- end testimonial -->
-
-                        <div class="testimonial clearfix">
-                            <div class="desc">
-                                <h3><i class="fa fa-quote-left"></i> Great & Talented Team!</h3>
-                                <p class="lead">The master-builder of human happines no one rejects, dislikes avoids pleasure itself, because it is very pursue pleasure. </p>
-                            </div>
-                            <div class="testi-meta">
-                                <img src="uploads/testi_03.png" alt="" class="img-fluid alignleft">
-                                <h4>Venanda Mercy <small>- Newyork City</small></h4>
-                            </div>
-                            <!-- end testi-meta -->
-                        </div>
-                        <!-- end testimonial -->
-                        <div class="testimonial clearfix">
-                            <div class="desc">
-                                <h3><i class="fa fa-quote-left"></i> Wonderful Support!</h3>
-                                <p class="lead">They have got my project on time with the competition with a sed highly skilled, and experienced & professional team.</p>
-                            </div>
-                            <div class="testi-meta">
-                                <img src="uploads/testi_01.png" alt="" class="img-fluid alignleft">
-                                <h4>James Fernando <small>- Manager of Racer</small></h4>
-                            </div>
-                            <!-- end testi-meta -->
-                        </div>
-                        <!-- end testimonial -->
-
-                        <div class="testimonial clearfix">
-                            <div class="desc">
-                                <h3><i class="fa fa-quote-left"></i> Awesome Services!</h3>
-                                <p class="lead">Explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you completed.</p>
-                            </div>
-                            <div class="testi-meta">
-                                <img src="uploads/testi_02.png" alt="" class="img-fluid alignleft">
-                                <h4>Jacques Philips <small>- Designer</small></h4>
-                            </div>
-                            <!-- end testi-meta -->
-                        </div>
-                        <!-- end testimonial -->
-
-                        <div class="testimonial clearfix">
-                            <div class="desc">
-                                <h3><i class="fa fa-quote-left"></i> Great & Talented Team!</h3>
-                                <p class="lead">The master-builder of human happines no one rejects, dislikes avoids pleasure itself, because it is very pursue pleasure. </p>
-                            </div>
-                            <div class="testi-meta">
-                                <img src="uploads/testi_03.png" alt="" class="img-fluid alignleft">
-                                <h4>Venanda Mercy <small>- Newyork City</small></h4>
-                            </div>
-                            <!-- end testi-meta -->
-                        </div><!-- end testimonial -->
-                    </div><!-- end carousel -->
-                </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end section -->
-	
-	<div id="blog" class="section lb">
-		<div class="container">
-			<div class="section-title text-left">
-                <h3>Blog</h3>
-                <p>Quisque eget nisl id nulla sagittis auctor quis id. Aliquam quis vehicula enim, non aliquam risus.</p>
-            </div><!-- end title -->
-			
-			<div class="row">
-				<div class="col-md-4 col-sm-6 col-lg-4">
-					<div class="post-box">
-						<div class="post-thumb">
-							<img src="uploads/blog-01.jpg" class="img-fluid" alt="post-img" />
-							<div class="date">
-								<span>06</span>
-								<span>Aug</span>
-							</div>
-						</div>
-						<div class="post-info">
-							<h4>Quisque auctor lectus interdum nisl accumsan venenatis.</h4>
-							<ul>
-                                <li>by admin</li>
-                                <li>Apr 21, 2018</li>
-                                <li><a href="#"><b> Comments</b></a></li>
-                            </ul>
-							<p>Etiam materials ut mollis tellus, vel posuere nulla. Etiam sit amet massa sodales aliquam at eget quam. Integer ultricies et magna quis.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 col-lg-4">
-					<div class="post-box">
-						<div class="post-thumb">
-							<img src="uploads/blog-02.jpg" class="img-fluid" alt="post-img" />
-							<div class="date">
-								<span>06</span>
-								<span>Aug</span>
-							</div>
-						</div>
-						<div class="post-info">
-							<h4>Quisque auctor lectus interdum nisl accumsan venenatis.</h4>
-							<ul>
-                                <li>by admin</li>
-                                <li>Apr 21, 2018</li>
-                                <li><a href="#"><b> Comments</b></a></li>
-                            </ul>
-							<p>Etiam materials ut mollis tellus, vel posuere nulla. Etiam sit amet massa sodales aliquam at eget quam. Integer ultricies et magna quis.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 col-lg-4">
-					<div class="post-box">
-						<div class="post-thumb">
-							<img src="uploads/blog-03.jpg" class="img-fluid" alt="post-img" />
-							<div class="date">
-								<span>06</span>
-								<span>Aug</span>
-							</div>
-						</div>
-						<div class="post-info">
-							<h4>Quisque auctor lectus interdum nisl accumsan venenatis.</h4>
-							<ul>
-                                <li>by admin</li>
-                                <li>Apr 21, 2018</li>
-                                <li><a href="#"><b> Comments</b></a></li>
-                            </ul>
-							<p>Etiam materials ut mollis tellus, vel posuere nulla. Etiam sit amet massa sodales aliquam at eget quam. Integer ultricies et magna quis.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-	</div>
-
-    <div id="contact" class="section db">
-        <div class="container">
-            <div class="section-title text-left">
-                <h3>Contact</h3>
-                <p>Quisque eget nisl id nulla sagittis auctor quis id. Aliquam quis vehicula enim, non aliquam risus.</p>
-            </div><!-- end title -->
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="contact_form">
-                        <div id="message"></div>
-                        <form id="contactForm" name="sentMessage" novalidate="novalidate">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<input class="form-control" id="name" type="text" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name.">
-										<p class="help-block text-danger"></p>
-									</div>
-									<div class="form-group">
-										<input class="form-control" id="email" type="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email address.">
-										<p class="help-block text-danger"></p>
-									</div>
-									<div class="form-group">
-										<input class="form-control" id="phone" type="tel" placeholder="Your Phone" required="required" data-validation-required-message="Please enter your phone number.">
-										<p class="help-block text-danger"></p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<textarea class="form-control" id="message" placeholder="Your Message" required="required" data-validation-required-message="Please enter a message."></textarea>
-										<p class="help-block text-danger"></p>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-								<div class="col-lg-12 text-center">
-									<div id="success"></div>
-									<button id="sendMessageButton" class="sim-btn btn-hover-new" data-text="Send Message" type="submit">Send Message</button>
-								</div>
-							</div>
-						</form>
+            <div class="section-header">
+                <h2 class="h2">Scale Your E-commerce Business Across All Platforms</h2>
+                <p class="body">Complete services for online store owners to grow and scale their business</p>
+            </div>
+            <div class="grid grid-3">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"/>
+                            <circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                        </svg>
                     </div>
-                </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end section -->
+                    <h3 class="h3">E-commerce Store Management</h3>
+                    <p class="card-description">End-to-end management for your online store across all platforms</p>
+                    <ul class="card-features">
+                        <li>Multi-platform inventory management</li>
+                        <li>Product listing optimization</li>
+                        <li>Order processing & fulfillment</li>
+                        <li>Performance analytics & reporting</li>
+                    </ul>
+                </div>
 
-    <div class="copyrights">
-        <div class="container">
-            <div class="footer-distributed">
-                <div class="footer-left">
-                    <p class="footer-links">
-                        <a href="#">Home</a>
-                        <a href="#">Blog</a>
-                        <a href="#">Pricing</a>
-                        <a href="#">About</a>
-                        <a href="#">Faq</a>
-                        <a href="#">Contact</a>
-                    </p>
-                    <p class="footer-company-name">All Rights Reserved. &copy; 2025 <a href="#"></a> Design By : 
-					<a href="https://html.design/">Emmanuel</a></p>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                    </div>
+                    <h3 class="h3">Product Research & SEO</h3>
+                    <p class="card-description">Find winning products and optimize them for maximum visibility</p>
+                    <ul class="card-features">
+                        <li>Profitable product identification</li>
+                        <li>Market trend analysis</li>
+                        <li>SEO title & description writing</li>
+                        <li>Keyword optimization strategy</li>
+                    </ul>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                        </svg>
+                    </div>
+                    <h3 class="h3">Cross-Platform Optimization</h3>
+                    <p class="card-description">Expand your reach across eBay, Shopify, Poshmark, and Depop</p>
+                    <ul class="card-features">
+                        <li>eBay dropshipping setup</li>
+                        <li>Shopify store optimization</li>
+                        <li>Poshmark product marketing</li>
+                        <li>Depop cross-listing management</li>
+                    </ul>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3 class="h3">Digital Marketing</h3>
+                    <p class="card-description">Strategic marketing to drive traffic and boost sales</p>
+                    <ul class="card-features">
+                        <li>Social media marketing campaigns</li>
+                        <li>Content creation & strategy</li>
+                        <li>Email marketing setup</li>
+                        <li>Conversion rate optimization</li>
+                    </ul>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.828 14.828a4 4 0 0 1-5.656 0"/>
+                            <path d="M9 9h1.246a1 1 0 0 1 .961.725l.582 2.624"/>
+                            <path d="M15 15h.246a1 1 0 0 1 .961.725l.582 2.624"/>
+                        </svg>
+                    </div>
+                    <h3 class="h3">Brand Design & Graphics</h3>
+                    <p class="card-description">Professional visuals that enhance your brand and drive conversions</p>
+                    <ul class="card-features">
+                        <li>Logo & brand identity design</li>
+                        <li>Product photo editing</li>
+                        <li>Social media graphics</li>
+                        <li>Marketing material creation</li>
+                    </ul>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                    <h3 class="h3">Data Management & Analytics</h3>
+                    <p class="card-description">Track performance and make data-driven business decisions</p>
+                    <ul class="card-features">
+                        <li>Google Sheets & Excel automation</li>
+                        <li>Sales analytics & reporting</li>
+                        <li>Competitor monitoring</li>
+                        <li>Custom dashboard creation</li>
+                    </ul>
                 </div>
             </div>
-        </div><!-- end container -->
-    </div><!-- end copyrights -->
+        </div>
+    </section>
 
-    <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="h2">Your E-commerce Success Partner</h2>
+                <p class="body">Certified expertise with proven results for online store growth</p>
+            </div>
+            <div class="about-content">
+                <div>
+                    <p class="about-text body">
+                        As a certified e-commerce specialist with years of hands-on experience, I understand the 
+                        unique challenges facing online store owners today. From my background in visual graphic design 
+                        and information technology to my current expertise in multi-platform e-commerce management, 
+                        I bring both creative vision and technical precision to every project.
+                    </p>
+                    <br>
+                    <p class="about-text body">
+                        My approach focuses on data-driven strategies that deliver measurable results. Whether you're 
+                        starting fresh or scaling an existing operation, I provide the tools and expertise needed to 
+                        compete effectively across eBay, Shopify, Poshmark, and Depop marketplaces.
+                    </p>
+                    <br>
+                    <p class="about-text body">
+                        With certifications in visual graphic design and information technology, combined with real-world 
+                        experience at companies like Power Mac Center and cosmetics retailers, I offer the perfect 
+                        blend of technical knowledge and marketing expertise.
+                    </p>
+                    
+                    <!-- Social Media Links -->
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/emman.esplaguera/" class="social-link" title="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/mmauleen/" class="social-link" title="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.004 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.995 3.708 13.844 3.708 12.547s.49-2.448 1.297-3.323C5.881 8.447 7.032 7.957 8.329 7.957s2.448.49 3.323 1.297c.877.807 1.297 1.958 1.297 3.255s-.49 2.448-1.297 3.323c-.875.807-2.026 1.297-3.323 1.297zm7.718-9.24h-.718c-1.3 0-2.448-.49-3.323-1.297-.875-.807-1.297-1.958-1.297-3.255s.49-2.448 1.297-3.323c.875-.807 2.026-1.297 3.323-1.297h.718c1.297 0 2.448.49 3.323 1.297.877.807 1.297 1.958 1.297 3.255s-.49 2.448-1.297 3.323c-.875.807-2.026 1.297-3.323 1.297z"/>
+                            </svg>
+                        </a>
+                        <a href="https://t.me/emmanwilde" class="social-link" title="Telegram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/qr/P3FTZWEO55QUK1" class="social-link" title="WhatsApp">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <span class="stat-number">8+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4+</span>
+                        <span class="stat-label">Platforms Expert</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Client Focused</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">Certified</span>
+                        <span class="stat-label">E-Commerce $ Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- ALL JS FILES -->
-    <script src="js/all.js"></script>
-	<!-- Camera Slider -->
-	<script src="js/jquery.mobile.customized.min.js"></script>
-	<script src="js/jquery.easing.1.3.js"></script> 
-	<script src="js/parallaxie.js"></script>
-	<script src="js/headline.js"></script>
-	<!-- Contact form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-    <!-- ALL PLUGINS -->
-    <script src="js/custom.js"></script>
-    <script src="js/jquery.vide.js"></script>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="h2">Portfolio & Case Studies</h2>
+                <p class="body">Real results from successful e-commerce projects</p>
+            </div>
+            <div class="grid grid-2">
+                <div class="portfolio-item card fade-in">
+                    <div class="portfolio-image">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                    <h3 class="h3">eBay Dropshipping Success</h3>
+                    <p class="card-description">Complete store optimization for electronics dropshipper</p>
+                    <ul class="card-features">
+                        <li>300% increase in monthly sales</li>
+                        <li>Optimized 1,200+ product listings</li>
+                        <li>Improved search ranking by 85%</li>
+                        <li>Reduced customer service inquiries by 60%</li>
+                    </ul>
+                </div>
 
+                <div class="portfolio-item card fade-in">
+                    <div class="portfolio-image">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                    </div>
+                    <h3 class="h3">Shopify Fashion Store Launch</h3>
+                    <p class="card-description">End-to-end store setup for emerging fashion brand</p>
+                    <ul class="card-features">
+                        <li>Built complete Shopify store from scratch</li>
+                        <li>Created brand identity and product photography</li>
+                        <li>Integrated payment gateways and shipping</li>
+                        <li>$15K revenue in first month</li>
+                    </ul>
+                </div>
+
+                <div class="portfolio-item card fade-in">
+                    <div class="portfolio-image">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                    </div>
+                    <h3 class="h3">Product Research & SEO Campaign</h3>
+                    <p class="card-description">Data-driven product selection for home goods retailer</p>
+                    <ul class="card-features">
+                        <li>Identified 50+ winning products</li>
+                        <li>Increased organic traffic by 200%</li>
+                        <li>Improved conversion rate from 1.2% to 3.8%</li>
+                        <li>Generated $45K additional revenue</li>
+                    </ul>
+                </div>
+
+                <div class="portfolio-item card fade-in">
+                    <div class="portfolio-image">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                    </div>
+                    <h3 class="h3">Multi-Platform Brand Strategy</h3>
+                    <p class="card-description">Coordinated presence across eBay, Poshmark, and Depop</p>
+                    <ul class="card-features">
+                        <li>Unified brand strategy across 3 platforms</li>
+                        <li>Created 200+ product listings with SEO optimization</li>
+                        <li>Increased brand recognition by 150%</li>
+                        <li>Grew follower base to 10K+ across platforms</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Testimonials Section (Commented Out) -->
+            <!--
+            <div class="section-header" style="margin-top: var(--space-96);">
+                <h2 class="h2">Client Testimonials</h2>
+                <p class="body">What my clients say about working with me</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Emmanuel transformed our eBay store completely. Our sales increased by 300% in just 3 months. His expertise in product optimization is unmatched."</p>
+                    <div class="testimonial-author">Sarah Johnson</div>
+                    <div class="testimonial-role">Fashion Retail Store Owner</div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The Shopify store Emmanuel built for us exceeded all expectations. Professional design, seamless functionality, and great customer support throughout."</p>
+                    <div class="testimonial-author">Mike Chen</div>
+                    <div class="testimonial-role">Electronics Store Owner</div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Emmanuel's product research helped us find winning items that doubled our revenue. His data-driven approach really works."</p>
+                    <div class="testimonial-author">Lisa Rodriguez</div>
+                    <div class="testimonial-role">Home Goods Retailer</div>
+                </div>
+            </div>
+            -->
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="h2">Ready to Scale Your E-commerce Business?</h2>
+                <p class="body">Let's discuss how I can help your online store achieve maximum growth</p>
+            </div>
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name *</label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address *</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="business" class="form-label">Online Store/Website</label>
+                    <input type="text" id="business" name="business" class="form-input" placeholder="yourstore.com">
+                </div>
+                <div class="form-group">
+                    <label for="platforms" class="form-label">Current Platforms</label>
+                    <select id="platforms" name="platforms" class="form-input">
+                        <option value="">Select platforms you're currently using</option>
+                        <option value="shopify">Shopify</option>
+                        <option value="ebay">eBay</option>
+                        <option value="poshmark">Poshmark</option>
+                        <option value="depop">Depop</option>
+                        <option value="amazon">Amazon</option>
+                        <option value="walmart">Walmart</option>
+                        <option value="multiple">Multiple Platforms</option>
+                        <option value="none">Just Starting Out</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="service" class="form-label">Primary Service Needed</label>
+                    <select id="service" name="service" class="form-input">
+                        <option value="">What do you need help with?</option>
+                        <option value="store-management">Complete Store Management</option>
+                        <option value="product-research">Product Research & SEO</option>
+                        <option value="cross-platform">Multi-Platform Expansion</option>
+                        <option value="store-setup">New Store Setup</option>
+                        <option value="marketing">Digital Marketing Campaign</option>
+                        <option value="design">Brand Design & Graphics</option>
+                        <option value="consultation">Strategy Consultation</option>
+                        <option value="other">Multiple Services</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Tell Me About Your Goals *</label>
+                    <textarea id="message" name="message" class="form-textarea" placeholder="What challenges are you facing with your online store? What would you like to achieve?" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Start Your E-commerce Journey
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22,2 15,22 11,13 2,9"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="h3" style="color: var(--primary-500); margin-bottom: var(--space-8);">Emmanuel Alenday</div>
+                    <p class="small">E-commerce Specialist & Digital Marketing Expert</p>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="#services" class="footer-link">Services</a></li>
+                    <li><a href="#about" class="footer-link">About</a></li>
+                    <li><a href="#portfolio" class="footer-link">Portfolio</a></li>
+                    <li><a href="#contact" class="footer-link">Contact</a></li>
+                </ul>
+            </div>
+            <div style="border-top: 1px solid var(--neutral-700); padding-top: var(--space-24); text-align: center;">
+                <p class="small">© 2025 Emmanuel Alenday. All rights reserved. | Caloocan City, Philippines</p>
+                <p class="small" style="margin-top: var(--space-8); color: var(--neutral-400);">
+                    Email: emmanuel.alenday.pmc@gmail.com | Available for e-commerce consultations worldwide
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Contact form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Create mailto link
+            const subject = `E-commerce Consultation Request from ${data.name}`;
+            const body = `
+Name: ${data.name}
+Email: ${data.email}
+Business: ${data.business || 'Not provided'}
+Service Needed: ${data.service || 'Not specified'}
+
+Project Details:
+${data.message}
+
+---
+Sent from Emmanuel Alenday Portfolio Website
+            `.trim();
+            
+            const mailtoLink = `mailto:emmanuel.alenday.pmc@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            alert('Thank you for your message! Your email client will open to send the message. If it doesn\'t open automatically, please email me directly at emmanuel.alenday.pmc@gmail.com');
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.backdropFilter = 'blur(10px)';
+            } else {
+                nav.style.background = 'var(--neutral-0)';
+                nav.style.backdropFilter = 'none';
+            }
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
