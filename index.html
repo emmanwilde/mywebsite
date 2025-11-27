@@ -75,11 +75,11 @@
 
         /* Typography */
         .h1 {
-            font-size: 50px;
-            font-weight: 350;
-            line-height: 2;
+            font-size: clamp(28px, 5vw, 72px);
+            font-weight: 200;
+            line-height: 1.2;
             color: var(--neutral-900);
-            margin-bottom: 50px;
+            margin-bottom: 20px;
             background: linear-gradient(135deg, var(--neutral-900) 0%, var(--primary-500) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -185,7 +185,7 @@
             position: relative;
             min-height: 70vh;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
         }
 
@@ -581,6 +581,7 @@
             
             .hero-content {
                 max-width: 100%;
+                padding-bottom: var(--space-32);
             }
             
             .section {
