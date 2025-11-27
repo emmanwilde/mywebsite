@@ -70,16 +70,16 @@
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 var(--space-32);
+            padding: 0 /*var(--space-32)*/;
         }
 
         /* Typography */
         .h1 {
-            font-size: 35px;
+            font-size: 50px;
             font-weight: 350;
-            line-height: 1;
+            line-height: 2;
             color: var(--neutral-900);
-            margin-bottom: var(--space-24);
+            margin-bottom: 50px;
             background: linear-gradient(135deg, var(--neutral-900) 0%, var(--primary-500) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -554,7 +554,7 @@
 
         @media (max-width: 768px) {
             .h1 {
-                font-size: 40px;
+                font-size: 70px;
             }
             
             .h2 {
