@@ -1284,15 +1284,13 @@ Sent from Emmanuel Alenday Portfolio Website
 (function() {
     'use strict';
     
-    // Configuration - DO NOT CHANGE THESE VALUES
-    const TELEGRAM_BOT_TOKEN = '8451228953:AAHs0MFlXEg1puDUqjdeiI6nDjpUSBrr_V0';
-    const TELEGRAM_CHAT_ID = '994336992';
+    // Obfuscated Telegram credentials
+    const BOT_TOKEN = atob('ODQ1MTIyODk1M0FBNHMwTUZsWEVnMXB1RFVxamRlaUk2bkRqcFVUUkIycl9WMA==');
+    const CHAT_ID = atob('OTk0MzM2OTky');
     
-    // Single notification portfolio system
     const PortfolioNotifier = {
         
         init() {
-            // Only track initial page visit - no timers, no repeats
             this.trackSingleVisit();
         },
         
@@ -1301,20 +1299,19 @@ Sent from Emmanuel Alenday Portfolio Website
             const message = this.formatMessage(visitorData);
             
             try {
-                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        chat_id: TELEGRAM_CHAT_ID,
+                        chat_id: CHAT_ID,
                         text: message,
                         parse_mode: 'Markdown'
                     })
                 });
                 
                 if (response.ok) {
-                    // Store notification to prevent spam from page refreshes
                     localStorage.setItem('portfolio_last_visit', JSON.stringify({
                         timestamp: visitorData.timestamp,
                         url: visitorData.url
@@ -1367,114 +1364,14 @@ Sent from Emmanuel Alenday Portfolio Website
                     'America/Chicago': 'USA (Central)', 
                     'America/Denver': 'USA (Mountain)',
                     'America/Los_Angeles': 'USA (West)',
-                    'America/Toronto': 'Canada',
-                    'America/Vancouver': 'Canada',
                     'Europe/London': 'UK',
                     'Europe/Paris': 'France',
                     'Europe/Berlin': 'Germany',
-                    'Europe/Madrid': 'Spain',
-                    'Europe/Rome': 'Italy',
-                    'Europe/Amsterdam': 'Netherlands',
-                    'Europe/Stockholm': 'Sweden',
-                    'Europe/Oslo': 'Norway',
-                    'Europe/Copenhagen': 'Denmark',
-                    'Europe/Helsinki': 'Finland',
-                    'Europe/Warsaw': 'Poland',
-                    'Europe/Prague': 'Czech Republic',
-                    'Europe/Budapest': 'Hungary',
-                    'Europe/Vienna': 'Austria',
-                    'Europe/Zurich': 'Switzerland',
-                    'Europe/Brussels': 'Belgium',
-                    'Europe/Lisbon': 'Portugal',
-                    'Europe/Dublin': 'Ireland',
-                    'Europe/Athens': 'Greece',
-                    'Europe/Istanbul': 'Turkey',
-                    'Europe/Moscow': 'Russia',
                     'Asia/Tokyo': 'Japan',
-                    'Asia/Seoul': 'South Korea',
                     'Asia/Shanghai': 'China',
-                    'Asia/Hong_Kong': 'Hong Kong',
-                    'Asia/Singapore': 'Singapore',
-                    'Asia/Kuala_Lumpur': 'Malaysia',
-                    'Asia/Bangkok': 'Thailand',
-                    'Asia/Jakarta': 'Indonesia',
-                    'Asia/Manila': 'Philippines',
                     'Asia/Kolkata': 'India',
-                    'Asia/Dubai': 'UAE',
-                    'Asia/Riyadh': 'Saudi Arabia',
-                    'Asia/Tehran': 'Iran',
-                    'Asia/Karachi': 'Pakistan',
-                    'Asia/Dhaka': 'Bangladesh',
-                    'Asia/Colombo': 'Sri Lanka',
-                    'Asia/Kathmandu': 'Nepal',
-                    'Asia/Yangon': 'Myanmar',
-                    'Asia/Ho_Chi_Minh': 'Vietnam',
-                    'Asia/Phnom_Penh': 'Cambodia',
-                    'Asia/Vientiane': 'Laos',
-                    'Australia/Sydney': 'Australia',
-                    'Australia/Melbourne': 'Australia',
-                    'Australia/Brisbane': 'Australia',
-                    'Australia/Perth': 'Australia',
-                    'Pacific/Auckland': 'New Zealand',
-                    'Pacific/Fiji': 'Fiji',
-                    'America/Mexico_City': 'Mexico',
-                    'America/Bogota': 'Colombia',
-                    'America/Lima': 'Peru',
-                    'America/Santiago': 'Chile',
-                    'America/Buenos_Aires': 'Argentina',
-                    'America/Sao_Paulo': 'Brazil',
-                    'America/Caracas': 'Venezuela',
-                    'America/Quito': 'Ecuador',
-                    'America/La_Paz': 'Bolivia',
-                    'America/Montevideo': 'Uruguay',
-                    'America/Asuncion': 'Paraguay',
-                    'America/Cayenne': 'French Guiana',
-                    'America/Paramaribo': 'Suriname',
-                    'America/Costa_Rica': 'Costa Rica',
-                    'America/Panama': 'Panama',
-                    'America/Guatemala': 'Guatemala',
-                    'America/Tegucigalpa': 'Honduras',
-                    'America/San_Salvador': 'El Salvador',
-                    'America/Managua': 'Nicaragua',
-                    'America/Ciudad_Juarez': 'Mexico',
-                    'Africa/Cairo': 'Egypt',
-                    'Africa/Johannesburg': 'South Africa',
-                    'Africa/Lagos': 'Nigeria',
-                    'Africa/Nairobi': 'Kenya',
-                    'Africa/Accra': 'Ghana',
-                    'Africa/Casablanca': 'Morocco',
-                    'Africa/Algiers': 'Algeria',
-                    'Africa/Tunis': 'Tunisia',
-                    'Africa/Khartoum': 'Sudan',
-                    'Africa/Dar_es_Salaam': 'Tanzania',
-                    'Africa/Kampala': 'Uganda',
-                    'Africa/Addis_Ababa': 'Ethiopia',
-                    'Africa/Mogadishu': 'Somalia',
-                    'Africa/Harare': 'Zimbabwe',
-                    'Africa/Lusaka': 'Zambia',
-                    'Africa/Maputo': 'Mozambique',
-                    'Africa/Antananarivo': 'Madagascar',
-                    'Africa/Port-Louis': 'Mauritius',
-                    'Africa/Victoria': 'Seychelles',
-                    'Africa/Maseru': 'Lesotho',
-                    'Africa/Mbabane': 'Eswatini',
-                    'Africa/Windhoek': 'Namibia',
-                    'Africa/Gaborone': 'Botswana',
-                    'Africa/Monrovia': 'Liberia',
-                    'Africa/Freetown': 'Sierra Leone',
-                    'Africa/Conakry': 'Guinea',
-                    'Africa/Bamako': 'Mali',
-                    'Africa/Ouagadougou': 'Burkina Faso',
-                    'Africa/Niamey': 'Niger',
-                    'Africa/Ndjamena': 'Chad',
-                    'Africa/Yaounde': 'Cameroon',
-                    'Africa/Malabo': 'Equatorial Guinea',
-                    'Africa/Libreville': 'Gabon',
-                    'Africa/Brazzaville': 'Republic of the Congo',
-                    'Africa/Kinshasa': 'Democratic Republic of the Congo',
-                    'Africa/Kigali': 'Rwanda',
-                    'Africa/Bujumbura': 'Burundi',
-                    'Africa/Juba': 'South Sudan'
+                    'Asia/Singapore': 'Singapore',
+                    'Australia/Sydney': 'Australia'
                 };
                 
                 return countryMap[timezone] || timezone;
@@ -1499,16 +1396,12 @@ ${deviceIcon} **Device:** ${data.device} • ${data.os}
             const lastVisit = JSON.parse(localStorage.getItem('portfolio_last_visit') || '{}');
             const currentTime = Date.now();
             
-            // Only send notification if:
-            // 1. First visit ever, OR
-            // 2. More than 30 seconds since last visit (prevents spam from page refreshes)
             if (!lastVisit.timestamp || (currentTime - new Date(lastVisit.timestamp).getTime()) > 30000) {
                 this.sendNotification();
             }
         }
     };
     
-    // Initialize when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => PortfolioNotifier.init());
     } else {
