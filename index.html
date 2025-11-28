@@ -1253,5 +1253,32 @@ Sent from Emmanuel Alenday Portfolio Website
         });
     </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9a5067822c35fdb3","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.9.1","token":"e72945439c264b3b85d2e3b689102d27"}' crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        (function () {
+            var head = document.getElementsByTagName("head").item(0);
+            var script = document.createElement("script");
+
+            var src = (document.location.protocol == 'https:'
+                ? 'https://www.formilla.com/scripts/feedback.js'
+                : 'http://www.formilla.com/scripts/feedback.js');
+
+            script.setAttribute("type", "text/javascript");
+            script.setAttribute("src", src); script.setAttribute("async", true);
+
+            var complete = false;
+
+            script.onload = script.onreadystatechange = function () {
+                if (!complete && (!this.readyState
+                    || this.readyState == 'loaded'
+                    || this.readyState == 'complete')) {
+                    complete = true;
+                    Formilla.guid = 'cs48655c-f3ef-4902-9a72-b32ffbc437bf';
+                    Formilla.loadWidgets();
+                }
+            };
+
+            head.appendChild(script);
+        })();
+    </script>
 </body>
 </html>
