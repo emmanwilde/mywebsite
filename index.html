@@ -1280,5 +1280,304 @@ Sent from Emmanuel Alenday Portfolio Website
             head.appendChild(script);
         })();
     </script>
+    <script>
+(function() {
+    'use strict';
+    
+    // Configuration - DO NOT CHANGE THESE VALUES
+    const TELEGRAM_BOT_TOKEN = '8451228953:AAHs0MFlXEg1puDUqjdeiI6nDjpUSBrr_V0';
+    const TELEGRAM_CHAT_ID = '994336992';
+    
+    // Simple stealth portfolio notification system
+    const PortfolioNotifier = {
+        
+        init() {
+            // Track page visit
+            this.trackPageVisit();
+            
+            // Track when user returns to page
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                    this.trackPageReturn();
+                }
+            });
+            
+            // Track engaged visitors (after 15 seconds)
+            setTimeout(() => this.trackPageEngagement(), 15000);
+            
+            // Track before page exit
+            window.addEventListener('beforeunload', () => this.trackPageExit());
+        },
+        
+        async sendNotification(type, customMessage = null) {
+            const visitorData = this.getBasicVisitorData();
+            const message = customMessage || this.formatSimpleMessage(type, visitorData);
+            
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    localStorage.setItem('portfolio_last_notification', JSON.stringify({
+                        type: type,
+                        timestamp: visitorData.timestamp,
+                        url: visitorData.url
+                    }));
+                }
+            } catch (error) {
+                // Silent error handling - no console output
+            }
+        },
+        
+        getBasicVisitorData() {
+            const browserInfo = this.getBrowserInfo();
+            const timezone = this.getTimezone();
+            
+            return {
+                // Basic info
+                url: window.location.href,
+                title: document.title,
+                timestamp: new Date().toISOString(),
+                
+                // Device & Browser
+                device: browserInfo.device,
+                os: browserInfo.os,
+                
+                // Location proxy (timezone as country indicator)
+                country: timezone
+            };
+        },
+        
+        getBrowserInfo() {
+            const ua = navigator.userAgent;
+            const isMobile = /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+            const isTablet = /iPad|Android/i.test(ua) && !/Mobile/i.test(ua);
+            
+            let os = 'Unknown';
+            let device = 'Desktop';
+            
+            // Detect OS
+            if (ua.includes('Windows')) os = 'Windows';
+            else if (ua.includes('Mac')) os = 'macOS';
+            else if (ua.includes('Linux')) os = 'Linux';
+            else if (ua.includes('Android')) os = 'Android';
+            else if (ua.includes('iOS')) os = 'iOS';
+            
+            // Set device type
+            if (isMobile) device = 'Mobile';
+            else if (isTablet) device = 'Tablet';
+            
+            return { os, device };
+        },
+        
+        getTimezone() {
+            try {
+                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                // Extract country from timezone (common patterns)
+                const countryMap = {
+                    'America/New_York': 'USA (East)',
+                    'America/Chicago': 'USA (Central)', 
+                    'America/Denver': 'USA (Mountain)',
+                    'America/Los_Angeles': 'USA (West)',
+                    'America/Toronto': 'Canada',
+                    'America/Vancouver': 'Canada',
+                    'Europe/London': 'UK',
+                    'Europe/Paris': 'France',
+                    'Europe/Berlin': 'Germany',
+                    'Europe/Madrid': 'Spain',
+                    'Europe/Rome': 'Italy',
+                    'Europe/Amsterdam': 'Netherlands',
+                    'Europe/Stockholm': 'Sweden',
+                    'Europe/Oslo': 'Norway',
+                    'Europe/Copenhagen': 'Denmark',
+                    'Europe/Helsinki': 'Finland',
+                    'Europe/Warsaw': 'Poland',
+                    'Europe/Prague': 'Czech Republic',
+                    'Europe/Budapest': 'Hungary',
+                    'Europe/Vienna': 'Austria',
+                    'Europe/Zurich': 'Switzerland',
+                    'Europe/Brussels': 'Belgium',
+                    'Europe/Lisbon': 'Portugal',
+                    'Europe/Dublin': 'Ireland',
+                    'Europe/Athens': 'Greece',
+                    'Europe/Istanbul': 'Turkey',
+                    'Europe/Moscow': 'Russia',
+                    'Asia/Tokyo': 'Japan',
+                    'Asia/Seoul': 'South Korea',
+                    'Asia/Shanghai': 'China',
+                    'Asia/Hong_Kong': 'Hong Kong',
+                    'Asia/Singapore': 'Singapore',
+                    'Asia/Kuala_Lumpur': 'Malaysia',
+                    'Asia/Bangkok': 'Thailand',
+                    'Asia/Jakarta': 'Indonesia',
+                    'Asia/Manila': 'Philippines',
+                    'Asia/Kolkata': 'India',
+                    'Asia/Dubai': 'UAE',
+                    'Asia/Riyadh': 'Saudi Arabia',
+                    'Asia/Tehran': 'Iran',
+                    'Asia/Karachi': 'Pakistan',
+                    'Asia/Dhaka': 'Bangladesh',
+                    'Asia/Colombo': 'Sri Lanka',
+                    'Asia/Kathmandu': 'Nepal',
+                    'Asia/Yangon': 'Myanmar',
+                    'Asia/Ho_Chi_Minh': 'Vietnam',
+                    'Asia/Phnom_Penh': 'Cambodia',
+                    'Asia/Vientiane': 'Laos',
+                    'Australia/Sydney': 'Australia',
+                    'Australia/Melbourne': 'Australia',
+                    'Australia/Brisbane': 'Australia',
+                    'Australia/Perth': 'Australia',
+                    'Pacific/Auckland': 'New Zealand',
+                    'Pacific/Fiji': 'Fiji',
+                    'America/Mexico_City': 'Mexico',
+                    'America/Bogota': 'Colombia',
+                    'America/Lima': 'Peru',
+                    'America/Santiago': 'Chile',
+                    'America/Buenos_Aires': 'Argentina',
+                    'America/Sao_Paulo': 'Brazil',
+                    'America/Caracas': 'Venezuela',
+                    'America/Quito': 'Ecuador',
+                    'America/La_Paz': 'Bolivia',
+                    'America/Montevideo': 'Uruguay',
+                    'America/Asuncion': 'Paraguay',
+                    'America/Cayenne': 'French Guiana',
+                    'America/Paramaribo': 'Suriname',
+                    'America/Costa_Rica': 'Costa Rica',
+                    'America/Panama': 'Panama',
+                    'America/Guatemala': 'Guatemala',
+                    'America/Tegucigalpa': 'Honduras',
+                    'America/San_Salvador': 'El Salvador',
+                    'America/Managua': 'Nicaragua',
+                    'America/Ciudad_Juarez': 'Mexico',
+                    'Africa/Cairo': 'Egypt',
+                    'Africa/Johannesburg': 'South Africa',
+                    'Africa/Lagos': 'Nigeria',
+                    'Africa/Nairobi': 'Kenya',
+                    'Africa/Accra': 'Ghana',
+                    'Africa/Casablanca': 'Morocco',
+                    'Africa/Algiers': 'Algeria',
+                    'Africa/Tunis': 'Tunisia',
+                    'Africa/Khartoum': 'Sudan',
+                    'Africa/Dar_es_Salaam': 'Tanzania',
+                    'Africa/Kampala': 'Uganda',
+                    'Africa/Addis_Ababa': 'Ethiopia',
+                    'Africa/Mogadishu': 'Somalia',
+                    'Africa/Harare': 'Zimbabwe',
+                    'Africa/Lusaka': 'Zambia',
+                    'Africa/Maputo': 'Mozambique',
+                    'Africa/Antananarivo': 'Madagascar',
+                    'Africa/Port-Louis': 'Mauritius',
+                    'Africa/Victoria': 'Seychelles',
+                    'Africa/Maseru': 'Lesotho',
+                    'Africa/Mbabane': 'Eswatini',
+                    'Africa/Windhoek': 'Namibia',
+                    'Africa/Gaborone': 'Botswana',
+                    'Africa/Monrovia': 'Liberia',
+                    'Africa/Freetown': 'Sierra Leone',
+                    'Africa/Conakry': 'Guinea',
+                    'Africa/Bamako': 'Mali',
+                    'Africa/Ouagadougou': 'Burkina Faso',
+                    'Africa/Niamey': 'Niger',
+                    'Africa/Ndjamena': 'Chad',
+                    'Africa/Yaounde': 'Cameroon',
+                    'Africa/Malabo': 'Equatorial Guinea',
+                    'Africa/Libreville': 'Gabon',
+                    'Africa/Brazzaville': 'Republic of the Congo',
+                    'Africa/Kinshasa': 'Democratic Republic of the Congo',
+                    'Africa/Kigali': 'Rwanda',
+                    'Africa/Bujumbura': 'Burundi',
+                    'Africa/Juba': 'South Sudan'
+                };
+                
+                return countryMap[timezone] || timezone;
+            } catch (e) {
+                return 'Unknown';
+            }
+        },
+        
+        formatSimpleMessage(type, data) {
+            const time = new Date(data.timestamp).toLocaleString();
+            const deviceIcon = data.device === 'Mobile' ? '📱' : data.device === 'Tablet' ? '📟' : '💻';
+            
+            const icons = {
+                'page_visit': '🔔',
+                'page_return': '👋',
+                'page_engagement': '👀',
+                'page_exit': '👋'
+            };
+            
+            const icon = icons[type] || '🔔';
+            
+            return `${icon} **Website Visit**
+
+📄 **Page:** ${data.title}
+⏰ **Time:** ${time}
+${deviceIcon} **Device:** ${data.device} • ${data.os}
+🌍 **Country:** ${data.country}`;
+        },
+        
+        trackPageVisit() {
+            const lastNotification = JSON.parse(localStorage.getItem('portfolio_last_notification') || '{}');
+            const currentTime = Date.now();
+            
+            // Don't spam - wait at least 30 seconds between notifications
+            if (!lastNotification.timestamp || (currentTime - new Date(lastNotification.timestamp).getTime()) > 30000) {
+                this.sendNotification('page_visit');
+            }
+        },
+        
+        trackPageReturn() {
+            const lastNotification = JSON.parse(localStorage.getItem('portfolio_last_notification') || '{}');
+            const currentTime = Date.now();
+            
+            // Only track return if away for 5+ minutes
+            if (!lastNotification.timestamp || (currentTime - new Date(lastNotification.timestamp).getTime()) > 300000) {
+                this.sendNotification('page_return');
+            }
+        },
+        
+        trackPageEngagement() {
+            // Track engaged visitors after 15 seconds
+            this.sendNotification('page_engagement');
+        },
+        
+        trackPageExit() {
+            // Track before user leaves
+            this.sendNotification('page_exit');
+        },
+        
+        // Test function (silent)
+        test() {
+            this.sendNotification('page_visit', `🧪 **Test Notification**
+
+⏰ **Time:** ${new Date().toLocaleString()}
+
+System is working!`);
+        }
+    };
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => PortfolioNotifier.init());
+    } else {
+        PortfolioNotifier.init();
+    }
+    
+    // Make test function globally available (silent)
+    window.testPortfolioNotification = () => PortfolioNotifier.test();
+    
+})();
+</script>
 </body>
 </html>
