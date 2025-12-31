@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamDashV2</title>
+    <style>
+        /* CSS Variables for theming */
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-item: rgba(255, 255, 255, 0.08);
+            --bg-item-hover: rgba(255, 255, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-tertiary: rgba(255, 255, 255, 0.5);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(255, 255, 255, 0.2);
+            --skeleton-bg: rgba(255, 255, 255, 0.12);
+            --skeleton-highlight: rgba(255, 255, 255, 0.2);
+            --section-border: rgba(255, 255, 255, 0.2);
+            --toggle-bg: rgba(255, 255, 255, 0.2);
+            --toggle-knob: #ffffff;
+            --accent-color: #00d9ff;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f5f7fa;
+            --bg-item: rgba(0, 0, 0, 0.04);
+            --bg-item-hover: rgba(0, 0, 0, 0.08);
+            --text-primary: #1a1a2e;
+            --text-secondary: rgba(26, 26, 46, 0.8);
+            --text-tertiary: rgba(26, 26, 46, 0.5);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(0, 0, 0, 0.15);
+            --skeleton-bg: rgba(0, 0, 0, 0.08);
+            --skeleton-highlight: rgba(0, 0, 0, 0.15);
+            --section-border: rgba(0, 0, 0, 0.15);
+            --toggle-bg: rgba(0, 0, 0, 0.15);
+            --toggle-knob: #1a1a2e;
+            --accent-color: #0088aa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-text {
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .credit {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-style: italic;
+            transition: color 0.3s ease;
+        }
+
+        /* Theme Toggle Switch */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-icon {
+            font-size: 1.1rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 56px;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--toggle-bg);
+            border-radius: 28px;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            left: 3px;
+            bottom: 3px;
+            background: var(--toggle-knob);
+            border-radius: 50%;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(28px);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        /* Categories grid layout */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            align-items: stretch;
+            grid-auto-flow: dense;
+        }
+
+        .section {
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Portrait - 2 columns */
+        @media (max-width: 900px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 12px 16px;
+            background: var(--bg-item);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .status-text {
+            font-weight: 500;
+        }
+
+        .status-count {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .section-title {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--section-border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .section-title:hover {
+            color: var(--accent-color);
+        }
+
+        .section-count {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--text-tertiary);
+            transition: color 0.3s ease;
+        }
+
+        /* List Layout - Much faster scrolling */
+        .site-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .site-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--bg-item);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            border: 1px solid transparent;
+            transition: all 0.15s ease;
+        }
+
+        .site-item:hover:not(.offline):not(.checking) {
+            background: var(--bg-item-hover);
+            border-color: var(--border-hover);
+            transform: translateX(4px);
+        }
+
+        .site-item:active:not(.offline):not(.checking) {
+            transform: translateX(2px);
+        }
+
+        .site-item.offline {
+            display: none;
+        }
+
+        .site-item.checking {
+            opacity: 0.7;
+        }
+
+        .site-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 5px;
+            object-fit: contain;
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .site-item:hover:not(.offline):not(.checking) .site-icon {
+            transform: scale(1.1);
+        }
+
+        .site-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+            flex: 1;
+        }
+
+        .site-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .site-item.online .site-status {
+            background: #00ff88;
+            box-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+        }
+
+        .site-item.checking .site-status {
+            background: var(--accent-color);
+            animation: statusPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* Skeleton loading for list items */
+        .site-item.checking .site-icon {
+            background: var(--skeleton-bg);
+            animation: skeletonPulse 1s ease-in-out infinite;
+        }
+
+        .site-item.checking .site-name {
+            color: transparent;
+            background: var(--skeleton-bg);
+            border-radius: 4px;
+            width: 60%;
+            height: 1em;
+            animation: skeletonPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes skeletonPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Mobile */
+        @media (max-width: 500px) {
+            body {
+                padding: 15px 12px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 20px;
+            }
+
+            .header-text {
+                text-align: left;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .credit {
+                font-size: 0.85rem;
+            }
+
+            .theme-toggle {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+            }
+
+            .status-bar {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                font-size: 0.8rem;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+
+            .site-item {
+                padding: 8px 12px;
+                gap: 10px;
+            }
+
+            .site-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            .site-name {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-text">
+                <h1>StreamDashV2</h1>
+                <p class="credit">~Compiled by Ems Allen~</p>
+            </div>
+            <div class="theme-toggle">
+                <span class="toggle-icon">☀️</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-icon">🌙</span>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <span class="status-text" id="statusText">Checking sites...</span>
+            <span class="status-count" id="statusCount">0 / 0 online</span>
+        </div>
+        
+        <div id="content">
+            <div class="categories-grid">
+                <!-- Streaming Sites -->
+                <div class="section">
+                    <h2 class="section-title" data-target="streaming">Streaming Sites <span class="section-count" id="count-streaming"></span></h2>
+                    <div class="site-list" id="streaming"></div>
+                </div>
+
+                <!-- Single Server -->
+                <div class="section">
+                    <h2 class="section-title" data-target="single">Single Server <span class="section-count" id="count-single"></span></h2>
+                    <div class="site-list" id="single"></div>
+                </div>
+
+                <!-- Stream Aggregators -->
+                <div class="section">
+                    <h2 class="section-title" data-target="aggregators">Stream Aggregators <span class="section-count" id="count-aggregators"></span></h2>
+                    <div class="site-list" id="aggregators"></div>
+                </div>
+
+                <!-- Embed Frontends -->
+                <div class="section">
+                    <h2 class="section-title" data-target="frontends">Embed Frontends <span class="section-count" id="count-frontends"></span></h2>
+                    <div class="site-list" id="frontends"></div>
+                </div>
+
+                <!-- Specialty Streaming -->
+                <div class="section">
+                    <h2 class="section-title" data-target="specialty">Specialty Streaming <span class="section-count" id="count-specialty"></span></h2>
+                    <div class="site-list" id="specialty"></div>
+                </div>
+
+                <!-- Anime Streaming -->
+                <div class="section">
+                    <h2 class="section-title" data-target="anime">Anime Streaming <span class="section-count" id="count-anime"></span></h2>
+                    <div class="site-list" id="anime"></div>
+                </div>
+
+                <!-- Cartoon Streaming -->
+                <div class="section">
+                    <h2 class="section-title" data-target="cartoon">Cartoon Streaming <span class="section-count" id="count-cartoon"></span></h2>
+                    <div class="site-list" id="cartoon"></div>
+                </div>
+
+                <!-- Drama Streaming -->
+                <div class="section">
+                    <h2 class="section-title" data-target="drama">Drama Streaming <span class="section-count" id="count-drama"></span></h2>
+                    <div class="site-list" id="drama"></div>
+                </div>
+
+                <!-- TV Streaming -->
+                <div class="section">
+                    <h2 class="section-title" data-target="tv">TV Streaming <span class="section-count" id="count-tv"></span></h2>
+                    <div class="site-list" id="tv"></div>
+                </div>
+
+                <!-- Live TV -->
+                <div class="section">
+                    <h2 class="section-title" data-target="live">Live TV <span class="section-count" id="count-live"></span></h2>
+                    <div class="site-list" id="live"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const siteCategories = {
+            streaming: [
+                { name: "Cineby", url: "https://www.cineby.gd/", favicon: "https://www.cineby.gd/favicon.ico" },
+                { name: "Bitcine", url: "https://www.bitcine.app/", favicon: "https://www.bitcine.app/favicon.ico" },
+                { name: "Fmovies", url: "https://www.fmovies.gd/", favicon: "https://www.fmovies.gd/favicon.ico" },
+                { name: "XPrime", url: "https://xprime.today/", favicon: "https://xprime.today/favicon.ico" },
+                { name: "XPrime Stream", url: "https://xprime.stream/", favicon: "https://xprime.stream/favicon.ico" },
+                { name: "RiveStream", url: "https://rivestream.org/", favicon: "https://rivestream.org/favicon.ico" },
+                { name: "RiveStream", url: "https://rivestream.net/", favicon: "https://rivestream.net/favicon.ico" },
+                { name: "RiveStream App", url: "https://www.rivestream.app/", favicon: "https://www.rivestream.app/favicon.ico" },
+                { name: "CorsFlix", url: "https://watch.corsflix.net", favicon: "https://watch.corsflix.net/favicon.ico" },
+                { name: "CorsFlix", url: "https://watch.corsflix.dpdns.org/", favicon: "https://watch.corsflix.dpdns.org/favicon.ico" },
+                { name: "CorsFlix", url: "https://corsflix.net", favicon: "https://corsflix.net/favicon.ico" },
+                { name: "Aether", url: "https://aether.mom/", favicon: "https://aether.mom/favicon.ico" },
+                { name: "Aether Legacy", url: "https://legacy.aether.mom/", favicon: "https://legacy.aether.mom/favicon.ico" },
+                { name: "Velora TV", url: "https://veloratv.ru/", favicon: "https://veloratv.ru/favicon.ico" },
+                { name: "456Movie", url: "https://456movie.net/", favicon: "https://456movie.net/favicon.ico" },
+                { name: "345Movie", url: "https://345movie.net/", favicon: "https://345movie.net/favicon.ico" },
+                { name: "Flickystream", url: "https://flickystream.ru/", favicon: "https://flickystream.ru/favicon.ico" },
+                { name: "Cinemora", url: "https://cinemora.ru/", favicon: "https://cinemora.ru/favicon.ico" },
+                { name: "Cinegram", url: "https://cinegram.net/", favicon: "https://cinegram.net/favicon.ico" },
+                { name: "SpencerDevs", url: "https://watch.spencerdevs.xyz/", favicon: "https://watch.spencerdevs.xyz/favicon.ico" },
+                { name: "SpenFlix", url: "https://spenflix.ru/", favicon: "https://spenflix.ru/favicon.ico" },
+                { name: "1Shows", url: "https://www.1shows.nl/", favicon: "https://www.1shows.nl/favicon.ico" },
+                { name: "1Flex", url: "https://www.1flex.nl/", favicon: "https://www.1flex.nl/favicon.ico" },
+                { name: "RGShows", url: "https://www.rgshows.ru/", favicon: "https://www.rgshows.ru/favicon.ico" },
+                { name: "CineVibe", url: "https://cinevibe.asia/", favicon: "https://cinevibe.asia/favicon.ico" },
+                { name: "FilmCave", url: "https://filmcave.ru/", favicon: "https://filmcave.ru/favicon.ico" },
+                { name: "FlixWay", url: "https://flixway.pro/", favicon: "https://flixway.pro/favicon.ico" },
+                { name: "CinemaBZ", url: "https://cinema.bz/", favicon: "https://cinema.bz/favicon.ico" },
+                { name: "Cinetaro", url: "https://cinetaro.buzz/", favicon: "https://cinetaro.buzz/favicon.ico" },
+                { name: "PopcornMovies", url: "https://popcornmovies.org/", favicon: "https://popcornmovies.org/favicon.ico" },
+                { name: "SmashyStream", url: "https://smashystream.com/", favicon: "https://smashystream.com/favicon.ico" },
+                { name: "FlixSmashy", url: "https://flix.smashystream.xyz/", favicon: "https://flix.smashystream.xyz/favicon.ico" },
+                { name: "SmashyStream", url: "https://smashystream.xyz/", favicon: "https://smashystream.xyz/favicon.ico" },
+                { name: "TVIDS", url: "https://www.tvids.to/", favicon: "https://www.tvids.to/favicon.ico" },
+                { name: "TVIDS", url: "https://www.tvids.net/", favicon: "https://www.tvids.net/favicon.ico" },
+                { name: "Watch TVSeries", url: "https://watch-tvseries.net/", favicon: "https://watch-tvseries.net/favicon.ico" },
+                { name: "TVIDS", url: "https://tvids.me/", favicon: "https://tvids.me/favicon.ico" },
+                { name: "TVIDS", url: "https://tvids.tv/", favicon: "https://tvids.tv/favicon.ico" },
+                { name: "AZMovies", url: "https://azmovies.to/", favicon: "https://azmovies.to/favicon.ico" },
+                { name: "BFlix", url: "https://bflix.sh/", favicon: "https://bflix.sh/favicon.ico" },
+                { name: "MovieHD", url: "https://moviehd.us", favicon: "https://moviehd.us/favicon.ico" },
+                { name: "StreamM4U", url: "https://streamm4u.com.co/", favicon: "https://streamm4u.com.co/favicon.ico" },
+                { name: "M4UHD", url: "https://m4uhd.page/", favicon: "https://m4uhd.page/favicon.ico" },
+                { name: "StreamDB", url: "https://streamdb.space/", favicon: "https://streamdb.space/favicon.ico" },
+                { name: "Levidia", url: "https://www.levidia.ch/", favicon: "https://www.levidia.ch/favicon.ico" },
+                { name: "Supernova", url: "https://supernova.to/", favicon: "https://supernova.to/favicon.ico" },
+                { name: "Goojara", url: "https://ww1.goojara.to/", favicon: "https://ww1.goojara.to/favicon.ico" },
+                { name: "PrimeWire", url: "https://www.primewire.mov/", favicon: "https://www.primewire.mov/favicon.ico" },
+                { name: "PrimeWire", url: "https://www.primewire.tf/", favicon: "https://www.primewire.tf/favicon.ico" },
+                { name: "CineB", url: "https://cineb.world/", favicon: "https://cineb.world/favicon.ico" },
+                { name: "ProjectFreeTV", url: "https://projectfreetv.sx/", favicon: "https://projectfreetv.sx/favicon.ico" },
+                { name: "Downloads Anymovies", url: "https://www.downloads-anymovies.co/", favicon: "https://www.downloads-anymovies.co/favicon.ico" }
+            ],
+            single: [
+                { name: "Nepu", url: "https://nepu.to/", favicon: "https://nepu.to/favicon.ico" },
+                { name: "EE3", url: "https://ee3.me/", favicon: "https://ee3.me/favicon.ico" },
+                { name: "Rips", url: "https://rips.cc/", favicon: "https://rips.cc/favicon.ico" },
+                { name: "YFlix", url: "https://yflix.to/", favicon: "https://yflix.to/favicon.ico" },
+                { name: "1Movies", url: "https://1movies.bz/", favicon: "https://1movies.bz/favicon.ico" },
+                { name: "RidoMovies", url: "https://ridomovies.tv/", favicon: "https://ridomovies.tv/favicon.ico" },
+                { name: "WatchFlix", url: "https://watchflix.to/", favicon: "https://watchflix.to/favicon.ico" },
+                { name: "ShowBox", url: "https://www.showbox.media/", favicon: "https://www.showbox.media/favicon.ico" },
+                { name: "UniqueStream", url: "https://uniquestream.net/", favicon: "https://uniquestream.net/favicon.ico" },
+                { name: "Movies4F", url: "https://movies4f.com/", favicon: "https://movies4f.com/favicon.ico" },
+                { name: "FShareTV", url: "https://fsharetv.co/", favicon: "https://fsharetv.co/favicon.ico" },
+                { name: "YesMovies", url: "https://yesmovies.ag/", favicon: "https://yesmovies.ag/favicon.ico" },
+                { name: "SFlix2", url: "https://sflix2.to/", favicon: "https://sflix2.to/favicon.ico" },
+                { name: "SFlix", url: "https://sflix.to/", favicon: "https://sflix.to/favicon.ico" },
+                { name: "SFlixTube", url: "https://sflixto.tube/", favicon: "https://sflixto.tube/favicon.ico" },
+                { name: "FlixHQ", url: "https://flixhq.to/", favicon: "https://flixhq.to/favicon.ico" },
+                { name: "HollyMovieHD", url: "https://hollymoviehd.cc/", favicon: "https://hollymoviehd.cc/favicon.ico" },
+                { name: "YesHD", url: "https://yeshd.net/", favicon: "https://yeshd.net/favicon.ico" },
+                { name: "NovaMovie", url: "https://novamovie.net/", favicon: "https://novamovie.net/favicon.ico" },
+                { name: "NMovies", url: "https://nmovies.cc/", favicon: "https://nmovies.cc/favicon.ico" },
+                { name: "LookMovie", url: "https://lookmovie2.to/", favicon: "https://lookmovie2.to/favicon.ico" },
+                { name: "LookMovie", url: "https://lookmovie2.la/", favicon: "https://lookmovie2.la/favicon.ico" },
+                { name: "PlayIMDB", url: "https://www.playimdb.com/", favicon: "https://www.playimdb.com/favicon.ico" },
+                { name: "Discord Community", url: "https://discord.gg/WHxeZ3aTtb", favicon: "https://discord.com/favicon.ico" }
+            ],
+            aggregators: [
+                { name: "PStream", url: "https://pstream.mov/", favicon: "https://pstream.mov/favicon.ico" },
+                { name: "Flixer", url: "https://flixer.sh", favicon: "https://flixer.sh/favicon.ico" },
+                { name: "Hexa", url: "https://hexa.su/", favicon: "https://hexa.su/favicon.ico" },
+                { name: "Vidora", url: "https://watch.vidora.su/", favicon: "https://watch.vidora.su/favicon.ico" },
+                { name: "Filmex", url: "https://filmex.to/", favicon: "https://filmex.to/favicon.ico" },
+                { name: "Cinezo", url: "https://www.cinezo.net/", favicon: "https://www.cinezo.net/favicon.ico" },
+                { name: "Yenime", url: "https://yenime.net/", favicon: "https://yenime.net/favicon.ico" },
+                { name: "Willow", url: "https://willow.arlen.icu/", favicon: "https://willow.arlen.icu/favicon.ico" },
+                { name: "Salix", url: "https://salix.pages.dev/", favicon: "https://salix.pages.dev/favicon.ico" },
+                { name: "Beech", url: "https://www.beech.watch/", favicon: "https://www.beech.watch/favicon.ico" },
+                { name: "BCine", url: "https://bcine.app/", favicon: "https://bcine.app/favicon.ico" },
+                { name: "CinemaOS", url: "https://cinemaos.live/", favicon: "https://cinemaos.live/favicon.ico" },
+                { name: "CinemaOS", url: "https://cinemaos.tech/", favicon: "https://cinemaos.tech/favicon.ico" },
+                { name: "CinemaOS", url: "https://cinemaos.me/", favicon: "https://cinemaos.me/favicon.ico" },
+                { name: "Vynx TV", url: "https://tv.vynx.cc/", favicon: "https://tv.vynx.cc/favicon.ico" },
+                { name: "Popr", url: "https://popr.ink/", favicon: "https://popr.ink/favicon.ico" },
+                { name: "PrimeShows", url: "https://www.primeshows.live/", favicon: "https://www.primeshows.live/favicon.ico" },
+                { name: "NetFlex", url: "https://netflex.uk/", favicon: "https://netflex.uk/favicon.ico" },
+                { name: "LordFlix", url: "https://lordflix.club/", favicon: "https://lordflix.club/favicon.ico" },
+                { name: "VoidFlix", url: "https://voidflix.pages.dev/", favicon: "https://voidflix.pages.dev/favicon.ico" },
+                { name: "Flixzy", url: "https://flixzy.pages.dev/", favicon: "https://flixzy.pages.dev/favicon.ico" },
+                { name: "Bludclart", url: "https://watch.bludclart.com/", favicon: "https://watch.bludclart.com/favicon.ico" },
+                { name: "StreamFlix", url: "https://watch.streamflix.one/", favicon: "https://watch.streamflix.one/favicon.ico" },
+                { name: "FlickerMini", url: "https://flickermini.pages.dev/", favicon: "https://flickermini.pages.dev/favicon.ico" },
+                { name: "FlickerMini Proxy", url: "https://flickerminiproxy.pages.dev/", favicon: "https://flickerminiproxy.pages.dev/favicon.ico" },
+                { name: "1PrimeShow", url: "https://1primeshow.online/", favicon: "https://1primeshow.online/favicon.ico" },
+                { name: "NetPlayZ", url: "https://netplayz.live/", favicon: "https://netplayz.live/favicon.ico" },
+                { name: "CineLove", url: "https://cinelove.live/", favicon: "https://cinelove.live/favicon.ico" },
+                { name: "MapplTV", url: "https://mappl.tv/", favicon: "https://mappl.tv/favicon.ico" },
+                { name: "PlayTorrio", url: "https://playtorrio.xyz/", favicon: "https://playtorrio.xyz/favicon.ico" },
+                { name: "Google CSE - Movies", url: "https://cse.google.com/cse?cx=006516753008110874046:cfdhwy9o57g", favicon: "https://www.google.com/favicon.ico" },
+                { name: "Google CSE - Streaming", url: "https://cse.google.com/cse?cx=006516753008110874046:o0mf6t-ugea", favicon: "https://www.google.com/favicon.ico" },
+                { name: "Google CSE - General", url: "https://cse.google.com/cse?cx=98916addbaef8b4b6", favicon: "https://www.google.com/favicon.ico" },
+                { name: "Google CSE - Anime", url: "https://cse.google.com/cse?cx=0199ade0b25835f2e", favicon: "https://www.google.com/favicon.ico" }
+            ],
+            frontends: [
+                { name: "Aurora", url: "https://www.aurorascreen.org/", favicon: "https://www.aurorascreen.org/favicon.ico" },
+                { name: "HydraHD", url: "https://hydrahd.com/", favicon: "https://hydrahd.com/favicon.ico" },
+                { name: "HydraHD", url: "https://hydrahd.ru/", favicon: "https://hydrahd.ru/favicon.ico" },
+                { name: "TMovie", url: "https://tmovie.tv/", favicon: "https://tmovie.tv/favicon.ico" },
+                { name: "TMovie", url: "https://tmovie.cc", favicon: "https://tmovie.cc/favicon.ico" },
+                { name: "VidBox", url: "https://vidbox.cc/", favicon: "https://vidbox.cc/favicon.ico" },
+                { name: "CineHD", url: "https://cinehd.cc/", favicon: "https://cinehd.cc/favicon.ico" },
+                { name: "HotFlix", url: "https://hotflix.to/", favicon: "https://hotflix.to/favicon.ico" },
+                { name: "YouFlex", url: "https://youflex.live/", favicon: "https://youflex.live/favicon.ico" },
+                { name: "CinePeace", url: "https://cinepeace.in/", favicon: "https://cinepeace.in/favicon.ico" },
+                { name: "CinemaDeck", url: "https://cinemadeck.com/", favicon: "https://cinemadeck.com/favicon.ico" },
+                { name: "CinemaDeck", url: "https://cinemadeck.st/", favicon: "https://cinemadeck.st/favicon.ico" },
+                { name: "RedFlix", url: "https://redflix.co/", favicon: "https://redflix.co/favicon.ico" },
+                { name: "RedFlix", url: "https://redflix.club/", favicon: "https://redflix.club/favicon.ico" },
+                { name: "FlixVo", url: "https://flixvo.live/", favicon: "https://flixvo.live/favicon.ico" },
+                { name: "FlixVo", url: "https://flixvo.fun/", favicon: "https://flixvo.fun/favicon.ico" },
+                { name: "BoredFlix", url: "https://www.boredflix.com/", favicon: "https://www.boredflix.com/favicon.ico" },
+                { name: "AlienFlix", url: "https://alienflix.net/", favicon: "https://alienflix.net/favicon.ico" },
+                { name: "HexaWatch", url: "https://hexawatch.cc/", favicon: "https://hexawatch.cc/favicon.ico" },
+                { name: "NunFlix", url: "https://nunflix.li/", favicon: "https://nunflix.li/favicon.ico" },
+                { name: "CineBolt", url: "https://cinebolt.net/", favicon: "https://cinebolt.net/favicon.ico" },
+                { name: "OnoFlix", url: "https://onoflix.ru/", favicon: "https://onoflix.ru/favicon.ico" },
+                { name: "BingeFlix", url: "https://bingeflix.tv/", favicon: "https://bingeflix.tv/favicon.ico" },
+                { name: "LunaStream", url: "https://lunastream.fun/", favicon: "https://lunastream.fun/favicon.ico" },
+                { name: "CineFlow", url: "https://www.cineflow.watch/", favicon: "https://www.cineflow.watch/favicon.ico" },
+                { name: "Way2Movies", url: "https://way2movies.live/", favicon: "https://way2movies.live/favicon.ico" },
+                { name: "WooflixTV", url: "https://www.wooflixtv.co/", favicon: "https://www.wooflixtv.co/favicon.ico" },
+                { name: "ZMovies", url: "https://zmov.vercel.app/", favicon: "https://zmov.vercel.app/favicon.ico" },
+                { name: "Coen Watch", url: "https://watch.coen.ovh/", favicon: "https://watch.coen.ovh/favicon.ico" },
+                { name: "PlexMovies", url: "https://plexmovies.online/", favicon: "https://plexmovies.online/favicon.ico" },
+                { name: "KaitoVault", url: "https://www.kaitovault.com/", favicon: "https://www.kaitovault.com/favicon.ico" },
+                { name: "Yampi", url: "https://yampi.live/", favicon: "https://yampi.live/favicon.ico" },
+                { name: "M-Zone", url: "https://www.m-zone.org/", favicon: "https://www.m-zone.org/favicon.ico" },
+                { name: "MoviePluto", url: "https://moviepluto.fun/", favicon: "https://moviepluto.fun/favicon.ico" },
+                { name: "Altair", url: "https://altair.mollusk.top/", favicon: "https://altair.mollusk.top/favicon.ico" },
+                { name: "NovaStream", url: "https://novastream.top/", favicon: "https://novastream.top/favicon.ico" },
+                { name: "Ask4Movie", url: "https://ask4movie.app/", favicon: "https://ask4movie.app/favicon.ico" },
+                { name: "ZXCPrime", url: "https://zxcprime.icu/", favicon: "https://zxcprime.icu/favicon.ico" },
+                { name: "CineGo", url: "https://cinego.co/", favicon: "https://cinego.co/favicon.ico" }
+            ],
+            specialty: [
+                { name: "RareFilmm", url: "https://rarefilmm.com/", favicon: "https://rarefilmm.com/favicon.ico" },
+                { name: "JP Films", url: "https://jp-films.com/", favicon: "https://jp-films.com/favicon.ico" },
+                { name: "Tokuzilla", url: "https://tokuzilla.net/", favicon: "https://tokuzilla.net/favicon.ico" },
+                { name: "Gizmoplex MST3K", url: "https://www.gizmoplex.com/mst3k", favicon: "https://www.gizmoplex.com/favicon.ico" },
+                { name: "RiffTrax Twitch", url: "https://www.twitch.tv/rifftrax", favicon: "https://www.twitch.tv/favicon.ico" },
+                { name: "RiffTrax Pluto", url: "https://pluto.tv/live-tv/rifftrax", favicon: "https://pluto.tv/favicon.ico" },
+                { name: "UBU Film", url: "https://ubu.com/film/", favicon: "https://ubu.com/favicon.ico" },
+                { name: "Interactive Player", url: "https://github.com/Eveep23/Interactive-Player", favicon: "https://github.com/favicon.ico" },
+                { name: "Li-Ma", url: "https://www.li-ma.nl/", favicon: "https://www.li-ma.nl/favicon.ico" },
+                { name: "LightCone", url: "https://lightcone.org/en", favicon: "https://lightcone.org/favicon.ico" },
+                { name: "Hamiltro Links", url: "https://www.panix.com/~hamiltro/links/", favicon: "https://www.panix.com/favicon.ico" },
+                { name: "Le Cinema Club", url: "https://www.lecinemaclub.com/", favicon: "https://www.lecinemaclub.com/favicon.ico" },
+                { name: "Cinema Club Archives", url: "https://www.lecinemaclub.com/archives/index/", favicon: "https://www.lecinemaclub.com/favicon.ico" },
+                { name: "Zero1Cine", url: "https://zero1cine.com/", favicon: "https://zero1cine.com/favicon.ico" },
+                { name: "Viddsee", url: "https://www.viddsee.com/", favicon: "https://www.viddsee.com/favicon.ico" },
+                { name: "ShortVerse", url: "https://www.shortverse.com/explore", favicon: "https://www.shortverse.com/favicon.ico" },
+                { name: "Short of the Week", url: "https://www.shortoftheweek.com/", favicon: "https://www.shortoftheweek.com/favicon.ico" },
+                { name: "WatchArgo", url: "https://web.watchargo.com/", favicon: "https://web.watchargo.com/favicon.ico" },
+                { name: "0xDB", url: "https://0xdb.org/", favicon: "https://0xdb.org/favicon.ico" },
+                { name: "Home Movies 100", url: "https://www.homemovies100.it/en/", favicon: "https://www.homemovies100.it/favicon.ico" },
+                { name: "Panix Footage", url: "https://www.panix.com/~footage/", favicon: "https://www.panix.com/favicon.ico" },
+                { name: "Prelinger Archive", url: "https://archive.org/details/prelinger", favicon: "https://archive.org/favicon.ico" },
+                { name: "FMHYB64 Guide", url: "https://rentry.co/FMHYB64#clownsec", favicon: "https://rentry.co/favicon.ico" },
+                { name: "Reddit Musical Bootlegs", url: "https://www.reddit.com/r/MusicalBootlegs", favicon: "https://www.reddit.com/favicon.ico" },
+                { name: "YouTube Musical Bootlegs", url: "https://youtube.com/playlist?list=PLsIt5G4GJ27lxWP9Qi5N70zRSkJAT0ntc", favicon: "https://www.youtube.com/favicon.ico" },
+                { name: "Global Shakespeares", url: "https://globalshakespeares.mit.edu/", favicon: "https://globalshakespeares.mit.edu/favicon.ico" },
+                { name: "TV Ark", url: "https://tvark.org/", favicon: "https://tvark.org/favicon.ico" },
+                { name: "Daily Commercials", url: "https://dailycommercials.com/", favicon: "https://dailycommercials.com/favicon.ico" },
+                { name: "BMCC 1967", url: "https://www.youtube.com/@BMCC1967/", favicon: "https://www.youtube.com/favicon.ico" },
+                { name: "Movie Commentaries", url: "https://www.youtube.com/@moviecommentaries", favicon: "https://www.youtube.com/favicon.ico" },
+                { name: "Special Features Archive", url: "https://youtube.com/@specialfeaturesarchive", favicon: "https://www.youtube.com/favicon.ico" },
+                { name: "DPAN TV", url: "https://dpan.tv/", favicon: "https://dpan.tv/favicon.ico" },
+                { name: "LumoTV", url: "https://lumotv.co.uk/", favicon: "https://lumotv.co.uk/favicon.ico" },
+                { name: "Audio Vault", url: "https://audiovault.net/", favicon: "https://audiovault.net/favicon.ico" }
+            ],
+            anime: [
+                { name: "Wotaku Wiki", url: "https://wotaku.wiki/websites", favicon: "https://wotaku.wiki/favicon.ico" },
+                { name: "TheIndex Moe", url: "https://theindex.moe/library/anime", favicon: "https://theindex.moe/favicon.ico" },
+                { name: "EverythingMoe", url: "https://everythingmoe.com/", favicon: "https://everythingmoe.com/favicon.ico" },
+                { name: "AnimeKai", url: "https://animekai.to/home", favicon: "https://animekai.to/favicon.ico" },
+                { name: "AnimeKai", url: "https://animekai.cc/", favicon: "https://animekai.cc/favicon.ico" },
+                { name: "AnimeKai", url: "https://animekai.ac/", favicon: "https://animekai.ac/favicon.ico" },
+                { name: "Anikai", url: "https://anikai.to/", favicon: "https://anikai.to/favicon.ico" },
+                { name: "Anigo", url: "https://anigo.to/", favicon: "https://anigo.to/favicon.ico" },
+                { name: "Miruro", url: "https://www.miruro.com/", favicon: "https://www.miruro.com/favicon.ico" },
+                { name: "HiAnime", url: "https://hianime.to/", favicon: "https://hianime.to/favicon.ico" },
+                { name: "HiAnime", url: "https://hianime.nz/", favicon: "https://hianime.nz/favicon.ico" },
+                { name: "HiAnime", url: "https://hianime.sx/", favicon: "https://hianime.sx/favicon.ico" },
+                { name: "HiAnime", url: "https://hianime.bz/", favicon: "https://hianime.bz/favicon.ico" },
+                { name: "HiAnime", url: "https://hianime.pe/", favicon: "https://hianime.pe/favicon.ico" },
+                { name: "HiAnime", url: "https://hianime.tv/", favicon: "https://hianime.tv/favicon.ico" },
+                { name: "Anime Realms", url: "https://www.animerealms.org/", favicon: "https://www.animerealms.org/favicon.ico" },
+                { name: "AllManga", url: "https://allmanga.to/", favicon: "https://allmanga.to/favicon.ico" },
+                { name: "AnimePahe", url: "https://animepahe.si/", favicon: "https://animepahe.si/favicon.ico" },
+                { name: "KAA", url: "https://kaa.to/", favicon: "https://kaa.to/favicon.ico" },
+                { name: "AnimeX One", url: "https://animex.one/", favicon: "https://animex.one/favicon.ico" },
+                { name: "AniDap", url: "https://anidap.se/", favicon: "https://anidap.se/favicon.ico" },
+                { name: "Kuroiru", url: "https://kuroiru.co/", favicon: "https://kuroiru.co/favicon.ico" },
+                { name: "Google CSE - Anime", url: "https://cse.google.com/cse?cx=006516753008110874046:vzcl7wcfhei", favicon: "https://www.google.com/favicon.ico" },
+                { name: "Anify", url: "https://anify.to/", favicon: "https://anify.to/favicon.ico" },
+                { name: "Yenime", url: "https://yenime.net/", favicon: "https://yenime.net/favicon.ico" },
+                { name: "123Animes", url: "https://123animes.ru/", favicon: "https://123animes.ru/favicon.ico" },
+                { name: "AniBite", url: "https://anibite.cc/", favicon: "https://anibite.cc/favicon.ico" },
+                { name: "Kuudere", url: "https://kuudere.to/", favicon: "https://kuudere.to/favicon.ico" },
+                { name: "Kuudere", url: "https://kuudere.ru/", favicon: "https://kuudere.ru/favicon.ico" },
+                { name: "AnimeTsu", url: "https://animetsu.to/", favicon: "https://animetsu.to/favicon.ico" },
+                { name: "AnimeTsu", url: "https://animetsu.cc/", favicon: "https://animetsu.cc/favicon.ico" },
+                { name: "AnimeYY", url: "https://animeyy.com/", favicon: "https://animeyy.com/favicon.ico" },
+                { name: "JustAnime", url: "https://justanime.to/", favicon: "https://justanime.to/favicon.ico" },
+                { name: "Anikuro", url: "https://anikuro.to/", favicon: "https://anikuro.to/favicon.ico" },
+                { name: "Anikuro", url: "https://anikuro.ru/", favicon: "https://anikuro.ru/favicon.ico" },
+                { name: "AnimeNoSub", url: "https://animenosub.to/", favicon: "https://animenosub.to/favicon.ico" },
+                { name: "Anime Nexus", url: "https://anime.nexus/", favicon: "https://anime.nexus/favicon.ico" },
+                { name: "AnimeHub", url: "https://animehub.ac/", favicon: "https://animehub.ac/favicon.ico" },
+                { name: "RiveStream", url: "https://rivestream.org/", favicon: "https://rivestream.org/favicon.ico" },
+                { name: "RiveStream", url: "https://rivestream.net/", favicon: "https://rivestream.net/favicon.ico" },
+                { name: "AniZone", url: "https://anizone.to/", favicon: "https://anizone.to/favicon.ico" },
+                { name: "AniHQ", url: "https://anihq.to/", favicon: "https://anihq.to/favicon.ico" },
+                { name: "Lunar Anime", url: "https://lunaranime.ru/", favicon: "https://lunaranime.ru/favicon.ico" },
+                { name: "AnoBoye", url: "https://anoboye.com/", favicon: "https://anoboye.com/favicon.ico" },
+                { name: "Senshi Live", url: "https://senshi.live/", favicon: "https://senshi.live/favicon.ico" },
+                { name: "Anime Paradise", url: "https://www.animeparadise.moe/", favicon: "https://www.animeparadise.moe/favicon.ico" },
+                { name: "KissAnime", url: "https://kissanime.com.ru/", favicon: "https://kissanime.com.ru/favicon.ico" },
+                { name: "AnimeOnsen", url: "https://animeonsen.xyz/", favicon: "https://animeonsen.xyz/favicon.ico" },
+                { name: "UniqueStream Anime", url: "https://anime.uniquestream.net/", favicon: "https://anime.uniquestream.net/favicon.ico" },
+                { name: "FireAni", url: "https://fireani.me/", favicon: "https://fireani.me/favicon.ico" },
+                { name: "AnimeXin", url: "https://animexin.dev/", favicon: "https://animexin.dev/favicon.ico" },
+                { name: "Lucifer Donghua", url: "https://luciferdonghua.in/", favicon: "https://luciferdonghua.in/favicon.ico" },
+                { name: "LM Anime", url: "https://lmanime.com/", favicon: "https://lmanime.com/favicon.ico" },
+                { name: "CKSub", url: "https://cksub.org/", favicon: "https://cksub.org/favicon.ico" },
+                { name: "MyAnime", url: "https://myanime.live/", favicon: "https://myanime.live/favicon.ico" },
+                { name: "AnimeKhor", url: "https://animekhor.org/", favicon: "https://animekhor.org/favicon.ico" },
+                { name: "Crimson Fansubs", url: "https://crimsonfansubs.com/", favicon: "https://crimsonfansubs.com/favicon.ico" },
+                { name: "Crunchyroll", url: "https://www.crunchyroll.com/videos/anime", favicon: "https://www.crunchyroll.com/favicon.ico" },
+                { name: "Discord - Anime", url: "https://discord.gg/pwkuanXBJh", favicon: "https://discord.com/favicon.ico" },
+                { name: "AnimeThemes", url: "https://animethemes.moe/", favicon: "https://animethemes.moe/favicon.ico" },
+                { name: "Anymex", url: "https://anymex.vercel.app/", favicon: "https://anymex.vercel.app/favicon.ico" },
+                { name: "PlayTorrio", url: "https://playtorrio.xyz/", favicon: "https://playtorrio.xyz/favicon.ico" },
+                { name: "Anikin", url: "https://github.com/jerry08/Anikin", favicon: "https://github.com/favicon.ico" },
+                { name: "Unyo", url: "https://github.com/K3vinb5/Unyo", favicon: "https://github.com/favicon.ico" },
+                { name: "Seanime", url: "https://seanime.app/", favicon: "https://seanime.app/favicon.ico" },
+                { name: "Miru", url: "https://miru.js.org/en/", favicon: "https://miru.js.org/favicon.ico" }
+            ],
+            cartoon: [
+                { name: "WCO", url: "https://www.wco.tv/", favicon: "https://www.wco.tv/favicon.ico" },
+                { name: "WCO Stream", url: "https://www.wcostream.tv/", favicon: "https://www.wcostream.tv/favicon.ico" },
+                { name: "WCO Forever", url: "https://www.wcoforever.net/", favicon: "https://www.wcoforever.net/favicon.ico" },
+                { name: "KimCartoon", url: "https://kimcartoon.si/", favicon: "https://kimcartoon.si/favicon.ico" },
+                { name: "KissCartoon", url: "https://kisscartoon.nz/", favicon: "https://kisscartoon.nz/favicon.ico" },
+                { name: "KissCartoon", url: "https://kisscartoon.sh/", favicon: "https://kisscartoon.sh/favicon.ico" },
+                { name: "HiCartoon", url: "https://hicartoon.to/", favicon: "https://hicartoon.to/favicon.ico" },
+                { name: "Watch Cartoon Online", url: "https://www.watchcartoononline.com/", favicon: "https://www.watchcartoononline.com/favicon.ico" },
+                { name: "Funnier Moments", url: "https://www.funniermoments.net/", favicon: "https://www.funniermoments.net/favicon.ico" },
+                { name: "B98 TV", url: "https://www.b98.tv/home/", favicon: "https://www.b98.tv/favicon.ico" },
+                { name: "Toon Tales", url: "https://www.toontales.net/", favicon: "https://www.toontales.net/favicon.ico" },
+                { name: "Super Cartoons", url: "https://www.supercartoons.net/", favicon: "https://www.supercartoons.net/favicon.ico" }
+            ],
+            drama: [
+                { name: "EverythingMoe Drama", url: "https://everythingmoe.com/section/drama", favicon: "https://everythingmoe.com/favicon.ico" },
+                { name: "GoPlay", url: "https://goplay.su/", favicon: "https://goplay.su/favicon.ico" },
+                { name: "DramaCoolt", url: "https://dramacoolt.com.in/", favicon: "https://dramacoolt.com.in/favicon.ico" },
+                { name: "Einthusan", url: "https://einthusan.tv/intro/", favicon: "https://einthusan.tv/favicon.ico" },
+                { name: "KissKH", url: "https://kisskh.ovh/", favicon: "https://kisskh.ovh/favicon.ico" },
+                { name: "KissKH", url: "https://kisskh.run/", favicon: "https://kisskh.run/favicon.ico" },
+                { name: "KissAsian", url: "https://kissasian.com.lv/", favicon: "https://kissasian.com.lv/favicon.ico" },
+                { name: "KissKH", url: "https://kisskh.id/", favicon: "https://kisskh.id/favicon.ico" },
+                { name: "DramaHood", url: "https://dramahood.mom/", favicon: "https://dramahood.mom/favicon.ico" },
+                { name: "AsiaFlix", url: "https://asiaflix.net/", favicon: "https://asiaflix.net/favicon.ico" },
+                { name: "AsiaFlix", url: "https://asiaflix.in/", favicon: "https://asiaflix.in/favicon.ico" },
+                { name: "RiveStream KDrama", url: "https://rivestream.org/kdrama", favicon: "https://rivestream.org/favicon.ico" },
+                { name: "VidBox Asian Drama", url: "https://vidbox.cc/asian-drama", favicon: "https://vidbox.cc/favicon.ico" },
+                { name: "DramaFire", url: "https://dramafire.com.pl/", favicon: "https://dramafire.com.pl/favicon.ico" },
+                { name: "Asian Crush", url: "https://www.asiancrush.com/", favicon: "https://www.asiancrush.com/favicon.ico" },
+                { name: "Asian Subs", url: "https://asiansubs.com/", favicon: "https://asiansubs.com/favicon.ico" },
+                { name: "KissAsian", url: "https://kissasian.video/", favicon: "https://kissasian.video/favicon.ico" },
+                { name: "DramaCool", url: "https://www12.dramacool.sr/", favicon: "https://www12.dramacool.sr/favicon.ico" },
+                { name: "DramaCool", url: "https://dramacools9.cam/", favicon: "https://dramacools9.cam/favicon.ico" },
+                { name: "OnDemandChina", url: "https://www.ondemandchina.com/", favicon: "https://www.ondemandchina.com/favicon.ico" }
+            ],
+            tv: [
+                { name: "BSTSRS", url: "https://bstsrs.in/", favicon: "https://bstsrs.in/favicon.ico" },
+                { name: "Top SRS", url: "https://topsrs.day/", favicon: "https://topsrs.day/favicon.ico" },
+                { name: "SRS Top", url: "https://srstop.link/", favicon: "https://srstop.link/favicon.ico" },
+                { name: "Noxx", url: "https://noxx.to/", favicon: "https://noxx.to/favicon.ico" },
+                { name: "AZ Series", url: "https://azseries.org/", favicon: "https://azseries.org/favicon.ico" },
+                { name: "O Davies Playlists", url: "https://www.youtube.com/@ODavies/playlists", favicon: "https://www.youtube.com/favicon.ico" },
+                { name: "History Play", url: "https://play.history.com/", favicon: "https://play.history.com/favicon.ico" },
+                { name: "Adult Swim", url: "https://www.adultswim.com/videos/", favicon: "https://www.adultswim.com/favicon.ico" },
+                { name: "Disney Now", url: "https://disneynow.com/", favicon: "https://disneynow.com/favicon.ico" },
+                { name: "DIVA SF State", url: "https://diva.sfsu.edu/collections/sfbatv", favicon: "https://diva.sfsu.edu/favicon.ico" },
+                { name: "HD Clump", url: "https://hdclump.com/", favicon: "https://hdclump.com/favicon.ico" },
+                { name: "Broken Silenze", url: "https://www.brokensilenze.net/", favicon: "https://www.brokensilenze.net/favicon.ico" },
+                { name: "Reddit Panel Shows", url: "https://www.reddit.com/r/panelshow/", favicon: "https://www.reddit.com/favicon.ico" },
+                { name: "BBKR Guide", url: "https://rentry.co/bbkr4cfr", favicon: "https://rentry.co/favicon.ico" },
+                { name: "Silent Library", url: "https://thesilentlibrary.com/", favicon: "https://thesilentlibrary.com/favicon.ico" },
+                { name: "Running Man", url: "https://myrunningman.com/", favicon: "https://myrunningman.com/favicon.ico" },
+                { name: "Reddit Running Man", url: "https://redd.it/2fgm9p", favicon: "https://www.reddit.com/favicon.ico" },
+                { name: "TWC Classics", url: "https://twcclassics.com/", favicon: "https://twcclassics.com/favicon.ico" },
+                { name: "Google CSE - TV", url: "https://cse.google.com/cse?cx=006516753008110874046:hrhinud6efg", favicon: "https://www.google.com/favicon.ico" }
+            ],
+            live: [
+                { name: "TV Garden", url: "https://tv.garden/", favicon: "https://tv.garden/favicon.ico" },
+                { name: "PlayTorrio IPTV", url: "https://playtorrioiptv.pages.dev/", favicon: "https://playtorrioiptv.pages.dev/favicon.ico" },
+                { name: "TV Channels", url: "https://tv-channels.pages.dev/", favicon: "https://tv-channels.pages.dev/favicon.ico" },
+                { name: "NTV Stream", url: "https://ntvstream.cx/", favicon: "https://ntvstream.cx/favicon.ico" },
+                { name: "Easy Web TV", url: "https://zhangboheng.github.io/Easy-Web-TV-M3u8/routes/countries.html", favicon: "https://github.com/favicon.ico" },
+                { name: "IPTV Web", url: "https://iptv-web.app/", favicon: "https://iptv-web.app/favicon.ico" },
+                { name: "RGShows LiveTV", url: "https://www.rgshows.ru/livetv/", favicon: "https://www.rgshows.ru/favicon.ico" },
+                { name: "DLHD 24/7", url: "https://dlhd.dad/24-7-channels.php", favicon: "https://dlhd.dad/favicon.ico" },
+                { name: "DLHD", url: "https://dlhd.dad/", favicon: "https://dlhd.dad/favicon.ico" },
+                { name: "TheDaddy", url: "https://thedaddy.dad/", favicon: "https://thedaddy.dad/favicon.ico" },
+                { name: "TV Pass", url: "https://tvpass.org/", favicon: "https://tvpass.org/favicon.ico" },
+                { name: "TheTVApp", url: "https://thetvapp.to/", favicon: "https://thetvapp.to/favicon.ico" }
+            ]
+        };
+
+        // Configuration
+        const CONFIG = {
+            BATCH_SIZE: 15,
+            TIMEOUT: 3000
+        };
+
+        // Theme Toggle
+        function initTheme() {
+            const themeToggle = document.getElementById('themeToggle');
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                themeToggle.checked = savedTheme === 'dark';
+            } else if (!prefersDark) {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeToggle.checked = false;
+            }
+            
+            themeToggle.addEventListener('change', function() {
+                const theme = this.checked ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            });
+        }
+
+        // Check if site is online
+        function checkSiteOnline(site) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                const timeout = setTimeout(() => resolve(false), CONFIG.TIMEOUT);
+                img.onload = () => { clearTimeout(timeout); resolve(true); };
+                img.onerror = () => { clearTimeout(timeout); resolve(false); };
+                img.src = site.favicon;
+            });
+        }
+
+        // Create list item element
+        function createListItem(site) {
+            const item = document.createElement('a');
+            item.href = site.url;
+            item.className = 'site-item checking';
+            item.target = '_blank';
+            item.rel = 'noopener noreferrer';
+            item.innerHTML = `
+                <img src="${site.favicon}" alt="${site.name}" class="site-icon">
+                <span class="site-name">${site.name}</span>
+                <span class="site-status"></span>
+            `;
+            return item;
+        }
+
+        // Update item appearance
+        function updateItem(item, isOnline) {
+            item.classList.remove('checking');
+            if (isOnline) {
+                item.classList.add('online');
+            } else {
+                item.classList.add('offline');
+            }
+        }
+
+        // Initialize and check all sites
+        async function initializeSites() {
+            const statusText = document.getElementById('statusText');
+            const statusCount = document.getElementById('statusCount');
+            
+            // Sort categories by total site count (descending)
+            const sortedCategories = Object.entries(siteCategories)
+                .sort((a, b) => b[1].length - a[1].length);
+            
+            const allSites = [];
+            const categoryData = {};
+            const gridContainer = document.querySelector('.categories-grid');
+            
+            // Clear existing sections
+            gridContainer.innerHTML = '';
+            
+            for (const [category, sites] of sortedCategories) {
+                // Create section HTML
+                const section = document.createElement('div');
+                section.className = 'section';
+                section.innerHTML = `
+                    <h2 class="section-title" data-target="${category}">${category.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())} <span class="section-count" id="count-${category}"></span></h2>
+                    <div class="site-list" id="${category}"></div>
+                `;
+                gridContainer.appendChild(section);
+                
+                const container = section.querySelector('.site-list');
+                const countElement = section.querySelector('.section-count');
+                categoryData[category] = { container, countElement, sites, cards: [], onlineCount: 0 };
+                
+                sites.forEach(site => {
+                    const item = createListItem(site);
+                    container.appendChild(item);
+                    categoryData[category].cards.push({ item, site });
+                    allSites.push({ item, site, category });
+                });
+            }
+            
+            const totalSites = allSites.length;
+            let checkedCount = 0;
+            let onlineCount = 0;
+            
+            // Process in batches
+            for (let i = 0; i < allSites.length; i += CONFIG.BATCH_SIZE) {
+                const batch = allSites.slice(i, i + CONFIG.BATCH_SIZE);
+                const batchPromises = batch.map(item => checkSiteOnline(item.site));
+                const results = await Promise.all(batchPromises);
+                
+                batch.forEach((siteItem, index) => {
+                    const isOnline = results[index];
+                    checkedCount++;
+                    if (isOnline) onlineCount++;
+                    
+                    updateItem(siteItem.item, isOnline);
+                    categoryData[siteItem.category].onlineCount += isOnline ? 1 : 0;
+                });
+                
+                statusText.textContent = `Checking sites... ${checkedCount} / ${totalSites}`;
+                statusCount.textContent = `${onlineCount} online`;
+            }
+            
+            // Update category counts
+            for (const [category, data] of Object.entries(categoryData)) {
+                data.countElement.textContent = `(${data.onlineCount} online)`;
+            }
+            
+            statusText.textContent = `Complete!`;
+            statusCount.textContent = `${onlineCount} of ${totalSites} sites online`;
+        }
+
+        // Setup smooth scroll for section titles
+        function setupSectionScroll() {
+            document.querySelectorAll('.section-title').forEach(title => {
+                title.addEventListener('click', function() {
+                    const section = this.closest('.section');
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            initializeSites();
+            setupSectionScroll();
+        });
+    </script>
+</body>
+</html>
